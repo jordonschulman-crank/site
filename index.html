@@ -280,6 +280,56 @@ td.hi{color:var(--tx)}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--s4);border-radius:3px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* MOBILE */
+.cmp-mobile{display:none}
+@media(max-width:680px){
+  .pg{padding:20px 16px 60px}
+  .nav-brand{padding:10px 16px 0}
+  .logo-sub{display:none}
+  h1{font-size:clamp(26px,7vw,36px)}
+  .crank-defs.g5{grid-template-columns:1fr}
+  .ov-stats{grid-template-columns:1fr 1fr}
+  .ov-grid{grid-template-columns:1fr}
+  .ccc{grid-template-columns:1fr}
+  .rols{grid-template-columns:1fr}
+  .mcs{grid-template-columns:1fr}
+  .hrow{grid-template-columns:1fr 1fr}
+  .ecols{grid-template-columns:1fr}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .kick-split{grid-template-columns:1fr}
+  .vs{grid-template-columns:1fr}
+  .apb.open{grid-template-columns:1fr}
+  .apcol{border-right:none;border-bottom:1px solid var(--b1)}
+  .apcol:last-child{border-bottom:none}
+  .fwdb{grid-template-columns:1fr}
+  .tr{grid-template-columns:1fr}
+  .tlbl{text-align:left;display:flex;align-items:center;gap:8px;padding:8px 10px}
+
+  .fw-ring{flex-direction:column}
+  .fwp{border-right:none;border-bottom:1px solid var(--b1);display:flex;align-items:center;flex-wrap:wrap;gap:2px 12px;padding:14px 16px}
+  .fwp:last-child{border-bottom:none}
+  .fwl{display:none}
+  .fwn{margin-bottom:0}
+  .fwt{flex-basis:100%;margin-top:2px}
+  .fwh{display:none}
+
+  .tw{overflow-x:auto}
+  .tw table{min-width:520px}
+  .tw.cmp-desktop{display:none}
+  .cmp-mobile{display:flex;flex-direction:column;gap:8px}
+  .cmp-card{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r);padding:12px 14px}
+  .cmp-dim{font-family:var(--fm);font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;font-weight:600}
+  .cmp-row{display:flex;gap:10px;margin-bottom:6px}
+  .cmp-row:last-child{margin-bottom:0}
+  .cmp-tag{font-family:var(--fm);font-size:9px;font-weight:600;text-transform:uppercase;padding:2px 6px;border-radius:3px;flex-shrink:0;height:fit-content;margin-top:1px;width:48px;text-align:center}
+  .cmp-tag.scrum{background:var(--s4);color:var(--t2)}
+  .cmp-tag.crank{background:var(--rd);color:var(--red)}
+  .cmp-val{font-size:13px;color:var(--tx);line-height:1.4;flex:1}
+
+  .ov-punch{white-space:normal;font-size:14px;line-height:1.35}
+  th,td{overflow-wrap:break-word;word-break:break-word}
+}
 </style>
 </head>
 <body>
@@ -845,16 +895,20 @@ function rVA(){
 <div class="vsc" style="background:rgba(240,90,63,.06);border-color:rgba(240,90,63,.2)"><div class="vsl" style="color:var(--red)">Where CRANK makes its case</div><div class="vst" style="color:#f08070">CRANK</div>${[['#2eb87a','No structural deferral mechanism — failures resolved now'],['#2eb87a','Assess embeds learning into the cycle rather than scheduling it'],['#2eb87a','Two focused KICK meetings — internal and external, separate concerns'],['#2eb87a','Never Say No — mid-cycle change expected and navigated through IC'],['#2eb87a','Developer-owned documentation — closer to the work, more accurate'],['#f05a3f','CRANK Lead does not rotate — requires a strong, consistent leader'],['#f05a3f','Requires org-level authority restructuring — not just team adoption']].map(([c,t])=>`<div class="vsi"><span style="color:${c};flex-shrink:0">${c==='#2eb87a'?'+':'−'}</span><span style="color:rgba(240,128,112,.8)">${t}</span></div>`).join('')}</div>
 </div>
 <div class="verdict"><h3>The honest verdict</h3><p>Most high-performing Agile teams aren't slow because of Agile. They're slow because of org structure, approval chains, and stakeholder availability. CRANK names these correctly and provides explicit mechanisms to address them. The Intake Coordinator role and the "Never Say No" principle directly address the mid-cycle change problem that Agile treats as a disruption.</p><p>The strongest case for CRANK isn't "Agile is wrong." It's "Agile has accumulation risk." Over time, even great teams accrete ceremony. CRANK's minimal ceremony model — two focused KICKs, one steering document, clear ownership — resets that accumulation.</p><p style="color:var(--tx);font-weight:600">Scrum delivers a plan, revisited every two weeks. CRANK delivers solutions, every two to three days.</p></div>
-<div class="tw"><table style="table-layout:fixed"><thead><tr><th style="width:22%">Dimension</th><th style="width:39%">Scrum / Agile</th><th style="width:39%">CRANK</th></tr></thead><tbody>
-<tr><td class="tb">Cycle length</td><td>2 weeks standard</td><td class="hi">2–3 days per cycle, CRANK Lead calls dev item boundaries</td></tr>
-<tr><td class="tb">Requirements</td><td>Backlog grooming before sprint; mid-cycle change is disruption</td><td class="hi">Gathered in motion via IC; mid-cycle change expected and navigated</td></tr>
-<tr><td class="tb">Documentation</td><td>Often owned by BA or PM</td><td class="hi">Developer-owned — created from working understanding as you build</td></tr>
-<tr><td class="tb">Failure response</td><td>Logged, retrospective scheduled</td><td class="hi">Named and fixed within the hour</td></tr>
-<tr><td class="tb">Stakeholder meetings</td><td>Sprint review — one meeting, mixed audience</td><td class="hi">Two KICKs: Dev KICK (internal) + Stakeholder KICK (external)</td></tr>
-<tr><td class="tb">Slowdown rule</td><td>Velocity may drop; buffer sprints acceptable</td><td class="hi">Never. Triggers immediate CRANK Lead escalation.</td></tr>
-<tr><td class="tb">Decision authority</td><td>Often escalated async</td><td class="hi">CRANK Lead owns — decided promptly, documented in steering doc</td></tr>
-<tr><td class="tb">Ceremony load</td><td>4–6 events per week</td><td class="hi">Two focused KICKs. Everything else is building.</td></tr>
-</tbody></table></div>`;
+${(()=>{const cmpRows=[
+  ['Cycle length','2 weeks standard','2–3 days per cycle, CRANK Lead calls dev item boundaries'],
+  ['Requirements','Backlog grooming before sprint; mid-cycle change is disruption','Gathered in motion via IC; mid-cycle change expected and navigated'],
+  ['Documentation','Often owned by BA or PM','Developer-owned — created from working understanding as you build'],
+  ['Failure response','Logged, retrospective scheduled','Named and fixed within the hour'],
+  ['Stakeholder meetings','Sprint review — one meeting, mixed audience','Two KICKs: Dev KICK (internal) + Stakeholder KICK (external)'],
+  ['Slowdown rule','Velocity may drop; buffer sprints acceptable','Never. Triggers immediate CRANK Lead escalation.'],
+  ['Decision authority','Often escalated async','CRANK Lead owns — decided promptly, documented in steering doc'],
+  ['Ceremony load','4–6 events per week','Two focused KICKs. Everything else is building.'],
+];
+return `<div class="tw cmp-desktop"><table style="table-layout:fixed"><thead><tr><th style="width:22%">Dimension</th><th style="width:39%">Scrum / Agile</th><th style="width:39%">CRANK</th></tr></thead><tbody>
+${cmpRows.map(([dim,scrum,crank])=>`<tr><td class="tb">${dim}</td><td>${scrum}</td><td class="hi">${crank}</td></tr>`).join('')}
+</tbody></table></div>
+<div class="cmp-mobile">${cmpRows.map(([dim,scrum,crank])=>`<div class="cmp-card"><div class="cmp-dim">${dim}</div><div class="cmp-row"><span class="cmp-tag crank">CRANK</span><span class="cmp-val">${crank}</span></div><div class="cmp-row"><span class="cmp-tag scrum">Scrum</span><span class="cmp-val">${scrum}</span></div></div>`).join('')}</div>`;})()}`;
 }
 
 // ── MODAL ─────────────────────────────────────────────────────────────────────
