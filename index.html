@@ -43,6 +43,19 @@ body{background:var(--bg);color:var(--tx);font-family:var(--f);font-size:16px;li
 .ni.on{color:var(--tx);border-bottom-color:var(--red)}
 .ni-n{font-family:var(--fm);font-size:10.5px;color:var(--t4);transition:color .13s}
 .ni.on .ni-n{color:var(--red)}
+.nav-toggle{display:none;width:34px;height:34px;border-radius:8px;background:var(--s3);border:1px solid var(--b1);flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;flex-shrink:0}
+.nav-toggle span{width:16px;height:2px;background:var(--t2);border-radius:1px}
+.nav-toggle.on{background:var(--rd);border-color:var(--red)}
+.nav-toggle.on span{background:var(--red)}
+.current-page-m{display:none}
+.current-page-m .n{color:var(--t4)}
+.menu-panel{display:none}
+.menu-item{display:flex;align-items:center;gap:10px;padding:13px 16px;border-top:1px solid var(--b1);cursor:pointer}
+.menu-item.on{background:var(--s3);border-left:2px solid var(--red)}
+.menu-n{font-family:var(--fm);font-size:10px;color:var(--t4);width:20px;flex-shrink:0}
+.menu-item.on .menu-n{color:var(--red)}
+.menu-label{font-size:14px;color:var(--t2);font-weight:500}
+.menu-item.on .menu-label{color:var(--tx)}
 
 /* MAIN */
 .mn{flex:1;overflow:hidden;display:flex;flex-direction:column;width:100%}
@@ -329,6 +342,11 @@ td.hi{color:var(--tx)}
 
   .ov-punch{white-space:normal;font-size:14px;line-height:1.35}
   th,td{overflow-wrap:break-word;word-break:break-word}
+
+  .nav-links{display:none}
+  .nav-toggle{display:flex}
+  .current-page-m{display:flex;align-items:center;gap:6px;padding:10px 16px;font-family:var(--fm);font-size:12px;color:var(--red)}
+  .menu-panel.open{display:block;background:var(--s1);border-bottom:1px solid var(--b1)}
 }
 </style>
 </head>
@@ -337,8 +355,11 @@ td.hi{color:var(--tx)}
   <div class="nav-brand">
     <div class="logo-mark">CR<em>A</em>NK<sup style="font-size:8px;color:var(--t3);margin-left:1px">™</sup></div>
     <div class="logo-sub">Continuous · Rapid · Adaptive · Never Say No · Kinetic</div>
+    <div class="nav-toggle" id="navToggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
   </div>
   <div class="nav-links" id="nav"></div>
+  <div class="current-page-m" id="curPage" onclick="toggleMenu()"></div>
+  <div class="menu-panel" id="menuPanel"></div>
 </nav>
 <main class="mn">
   <div class="pg" id="pg"></div>
@@ -528,8 +549,29 @@ PLIST.forEach((p,i)=>{
   el.onclick=()=>go(p.id);nav.appendChild(el);
 });
 
+// mobile vertical menu (hamburger toggle)
+const menuPanel=document.getElementById('menuPanel');
+PLIST.forEach((p,i)=>{
+  const num=p.id==='overview'?'':String(i).padStart(2,'0');
+  const el=document.createElement('div');el.className='menu-item'+(i===0?' on':'');el.dataset.id=p.id;
+  el.innerHTML=`<span class="menu-n">${num}</span><span class="menu-label">${p.l}</span>`;
+  el.onclick=()=>go(p.id);menuPanel.appendChild(el);
+});
+
+function toggleMenu(){
+  const open=menuPanel.classList.toggle('open');
+  document.getElementById('navToggle').classList.toggle('on',open);
+}
+
 function go(id){
   document.querySelectorAll('.ni').forEach(el=>el.classList.toggle('on',el.dataset.id===id));
+  document.querySelectorAll('.menu-item').forEach(el=>el.classList.toggle('on',el.dataset.id===id));
+  const idx=PLIST.findIndex(p=>p.id===id);
+  const p=PLIST[idx];
+  const num=p.id==='overview'?'':String(idx).padStart(2,'0');
+  document.getElementById('curPage').innerHTML=num?`<span class="n">${num}</span> ${p.l}`:p.l;
+  menuPanel.classList.remove('open');
+  document.getElementById('navToggle').classList.remove('on');
   const pg=document.getElementById('pg');
   pg.innerHTML=rPg(id);pg.scrollTop=0;
   init(id);
