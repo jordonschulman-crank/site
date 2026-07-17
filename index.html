@@ -126,6 +126,20 @@ td.hi{color:var(--tx)}
 .mox:hover{background:var(--s4);color:var(--tx)}
 .mob{padding:18px 22px 22px}
 
+/* GATE */
+.gate{position:fixed;inset:0;z-index:2000;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px}
+.gate.hidden{display:none}
+.gate-box{width:100%;max-width:360px;background:var(--s2);border:1px solid var(--b1);border-radius:var(--rl);padding:28px 24px;text-align:center}
+.gate-logo{font-family:var(--fd);font-size:24px;font-weight:700;margin-bottom:6px}
+.gate-logo em{color:var(--red);font-style:normal}
+.gate-logo sup{font-size:10px;color:var(--t3);margin-left:2px}
+.gate-sub{font-size:13px;color:var(--t2);line-height:1.5;margin-bottom:20px}
+.gate-input{width:100%;background:var(--s3);border:1px solid var(--b1);border-radius:var(--r);padding:11px 13px;color:var(--tx);font-family:var(--f);font-size:14px;margin-bottom:10px}
+.gate-input:focus{outline:none;border-color:var(--rb)}
+.gate-err{font-size:12px;color:var(--red);margin-bottom:10px;min-height:16px}
+.gate-btn{width:100%;background:var(--red);color:#fff;border:none;border-radius:var(--r);padding:12px;font-family:var(--f);font-size:14px;font-weight:600;cursor:pointer;transition:opacity .13s}
+.gate-btn:hover{opacity:.9}
+
 /* OVERVIEW */
 .ov-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--b1);border:1px solid var(--b1);border-radius:var(--rl);overflow:hidden;margin-bottom:26px}
 .st{background:var(--s2);padding:18px 16px;cursor:default}
@@ -351,6 +365,16 @@ td.hi{color:var(--tx)}
 </style>
 </head>
 <body>
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">CR<em>A</em>NK<sup>TM</sup></div>
+    <div class="gate-sub">This site is private. Enter your email and the access password to continue.</div>
+    <input type="email" id="gateEmail" class="gate-input" placeholder="you@company.com" autocomplete="email" onkeydown="if(event.key==='Enter')checkGate()">
+    <input type="password" id="gatePass" class="gate-input" placeholder="Access password" autocomplete="off" onkeydown="if(event.key==='Enter')checkGate()">
+    <div class="gate-err" id="gateErr"></div>
+    <button class="gate-btn" onclick="checkGate()">Enter</button>
+  </div>
+</div>
 <nav class="topnav">
   <div class="nav-brand">
     <div class="logo-mark">CR<em>A</em>NK<sup style="font-size:8px;color:var(--t3);margin-left:1px">™</sup></div>
@@ -371,6 +395,23 @@ td.hi{color:var(--tx)}
 </footer>
 <div class="ov" id="ov" onclick="clov(event)"><div class="mo" id="mo"></div></div>
 <script>
+// ── GATE ─────────────────────────────────────────────────────────────────────
+const GATE_PASSWORD='CrankyOscar';
+if(localStorage.getItem('crankGateOk')==='1'){
+  const g=document.getElementById('gate');
+  if(g)g.classList.add('hidden');
+}
+function checkGate(){
+  const email=document.getElementById('gateEmail').value.trim();
+  const pass=document.getElementById('gatePass').value;
+  const err=document.getElementById('gateErr');
+  const emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if(!emailOk){err.textContent='Enter a valid email address.';return;}
+  if(pass!==GATE_PASSWORD){err.textContent='Incorrect password.';return;}
+  localStorage.setItem('crankGateOk','1');
+  document.getElementById('gate').classList.add('hidden');
+}
+
 const PLIST=[
   {id:'overview',l:'Overview',m:'Start here'},
   {id:'flywheel',l:'The flywheel',m:'C→R→A→N→K',sec:'Core framework'},
