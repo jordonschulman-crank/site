@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>CRANK Framework</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+:root{
+  --bg:#111214;--s1:#1a1d20;--s2:#22262b;--s3:#2b3038;--s4:#333a42;
+  --b1:rgba(255,255,255,.1);--b2:rgba(255,255,255,.18);--b3:rgba(255,255,255,.28);
+  --tx:#f0ede8;--t2:#c2beb8;--t3:#a09c95;--t4:#7f7c75;
+  --red:#f05a3f;--rd:rgba(240,90,63,.15);--rb:rgba(240,90,63,.35);
+  --amber:#e8940a;--ad:rgba(232,148,10,.15);
+  --green:#2eb87a;--gd:rgba(46,184,122,.15);
+  --blue:#4a8ee8;--bd:rgba(74,142,232,.15);
+  --purple:#8e6ed4;--pd:rgba(142,110,212,.15);
+  --f:'Inter',sans-serif;--fd:'Space Grotesk',sans-serif;--fm:'JetBrains Mono',monospace;
+  --r:8px;--rl:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--tx);font-family:var(--f);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+
+/* TOP NAV */
+.topnav{flex-shrink:0;background:var(--s1);border-bottom:1px solid var(--b1)}
+.nav-brand{display:flex;align-items:center;justify-content:space-between;padding:10px 24px 0}
+.logo-mark{font-family:var(--fd);font-size:19px;font-weight:700;letter-spacing:-.02em}
+.logo-mark em{color:var(--red);font-style:normal}
+.logo-sub{font-family:var(--fm);font-size:12.5px;color:var(--t3);letter-spacing:.05em;text-transform:uppercase}
+.ov-punch{font-family:var(--fd);font-size:17px;font-weight:600;color:var(--red);line-height:1.4;margin-bottom:20px;white-space:nowrap}
+.ftr{flex-shrink:0;background:var(--s1);border-top:1px solid var(--b1);padding:7px 24px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.ftr-t{font-family:var(--fm);font-size:11.5px;color:var(--t4)}
+.ftr-sep{color:var(--t4);font-size:11.5px}
+.ftr .tip{width:260px}
+.nav-links{display:flex;align-items:center;padding:0 16px;overflow-x:auto;scrollbar-width:none;gap:0}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-sep{width:1px;background:rgba(255,255,255,.08);margin:8px 4px;align-self:stretch;flex-shrink:0}
+.ni{display:flex;align-items:center;gap:5px;padding:7px 11px;cursor:pointer;color:var(--t3);font-size:13.5px;font-weight:500;transition:color .13s;white-space:nowrap;flex-shrink:0;border-bottom:2px solid transparent;margin-bottom:-1px;user-select:none}
+.ni:hover{color:var(--tx)}
+.ni.on{color:var(--tx);border-bottom-color:var(--red)}
+.ni-n{font-family:var(--fm);font-size:10.5px;color:var(--t4);transition:color .13s}
+.ni.on .ni-n{color:var(--red)}
+
+/* MAIN */
+.mn{flex:1;overflow:hidden;display:flex;flex-direction:column;width:100%}
+.pg{flex:1;overflow-y:auto;padding:32px 36px 80px;width:100%}
+
+/* TYPE */
+.ey{font-family:var(--fm);font-size:11.5px;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+h1{font-family:var(--fd);font-size:clamp(32px,4vw,52px);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:12px}
+h2{font-family:var(--fd);font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-.025em;line-height:1.1;margin-bottom:10px}
+h3{font-family:var(--fd);font-size:17px;font-weight:600;margin-bottom:6px}
+.lead{font-size:16px;color:var(--t2);line-height:1.7;margin-bottom:26px;max-width:600px;font-weight:500}
+.sr{height:1px;background:var(--b1);margin:26px 0}
+
+/* SURFACES */
+.card{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rl);padding:18px}
+.csm{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r);padding:12px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+
+/* ATOMS */
+.badge{display:inline-block;font-family:var(--fm);font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.06em}
+.rb{display:inline-block;padding:1px 8px;border-radius:4px;font-size:12.5px;font-weight:600;font-family:var(--fm)}
+.dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.dg{background:var(--green)}.dr{background:var(--red)}.da{background:var(--amber)}
+.li{display:flex;gap:8px;font-size:14.5px;color:var(--t2);line-height:1.55;margin-bottom:5px;font-weight:500}
+.ci{display:flex;gap:8px;font-size:14.5px;color:var(--t2);line-height:1.55;margin-bottom:5px;font-weight:500}
+.ci::before{content:"✓";color:var(--green);font-weight:700;flex-shrink:0}
+.ai{display:flex;gap:7px;font-size:13.5px;color:var(--t2);line-height:1.5;margin-bottom:4px;font-weight:500}
+.ai::before{content:"→";color:var(--t3);flex-shrink:0}
+.ml{font-family:var(--fm);font-size:12px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;font-weight:600}
+.mc{font-family:var(--fm);font-size:12.5px;color:var(--t2);background:var(--s3);padding:6px 10px;border-radius:4px;display:block;margin-bottom:8px;font-weight:500}
+.bw{display:flex;align-items:center;gap:10px}
+.bt{flex:1;height:3px;background:var(--s4);border-radius:2px;overflow:hidden}
+.bf{height:100%;border-radius:2px}
+.bl{font-family:var(--fm);font-size:11.5px;color:var(--t3);white-space:nowrap}
+.alert{border-left:2px solid var(--red);background:var(--rd);padding:11px 14px;border-radius:0 6px 6px 0;margin:14px 0}
+.at{font-size:13px;font-weight:600;color:#f08070;margin-bottom:3px}
+.ab{font-size:13px;color:#9a5040;line-height:1.6}
+.ib{border-left:2px solid var(--blue);background:var(--bd);padding:11px 14px;border-radius:0 6px 6px 0;margin:14px 0;font-size:13px;color:rgba(133,174,232,.8);line-height:1.6}
+.tw{border:1px solid var(--b1);border-radius:var(--rl);overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{font-family:var(--fm);font-weight:600;font-size:12px;color:var(--t3);text-align:left;padding:8px 13px;border-bottom:1px solid var(--b1);background:var(--s2);text-transform:uppercase;letter-spacing:.06em}
+td{padding:9px 13px;border-bottom:1px solid var(--b1);color:var(--t2);vertical-align:top;font-weight:500}
+tr:last-child td{border-bottom:none}
+td.tb{color:var(--tx);font-weight:600}
+td.hi{color:var(--tx)}
+
+/* TOOLTIP */
+.ht{position:relative;cursor:default}
+.tip{position:absolute;z-index:500;background:var(--s3);border:1px solid var(--b2);border-radius:var(--r);padding:11px 13px;width:220px;font-size:13.5px;color:var(--t2);line-height:1.6;pointer-events:none;opacity:0;transition:opacity .15s,transform .15s;box-shadow:0 8px 32px rgba(0,0,0,.6);font-weight:500}
+.tip.up{bottom:calc(100% + 7px);left:50%;transform:translateX(-50%) translateY(-4px)}
+.tip.dn{top:calc(100% + 7px);left:50%;transform:translateX(-50%) translateY(4px)}
+.ht:hover .tip{opacity:1}
+.ht:hover .tip.up{transform:translateX(-50%) translateY(0)}
+.ht:hover .tip.dn{transform:translateX(-50%) translateY(0)}
+.tip-h{font-family:var(--fd);font-size:13px;font-weight:600;color:var(--tx);margin-bottom:4px}
+
+/* MODAL */
+.ov{position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.78);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.ov.open{opacity:1;pointer-events:all}
+.mo{background:var(--s2);border:1px solid var(--b2);border-radius:var(--rl);width:min(660px,90vw);max-height:82vh;overflow-y:auto;transform:translateY(14px) scale(.98);transition:transform .22s cubic-bezier(.34,1.4,.64,1)}
+.ov.open .mo{transform:none}
+.moh{padding:18px 22px 14px;border-bottom:1px solid var(--b1);display:flex;align-items:flex-start;justify-content:space-between;gap:14px;position:sticky;top:0;background:var(--s2);z-index:1}
+.mot{font-family:var(--fd);font-size:18px;font-weight:700}
+.mox{width:27px;height:27px;border-radius:50%;background:var(--s3);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);font-size:16px;flex-shrink:0;transition:background .13s}
+.mox:hover{background:var(--s4);color:var(--tx)}
+.mob{padding:18px 22px 22px}
+
+/* OVERVIEW */
+.ov-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--b1);border:1px solid var(--b1);border-radius:var(--rl);overflow:hidden;margin-bottom:26px}
+.st{background:var(--s2);padding:18px 16px;cursor:default}
+.st-v{font-family:var(--fd);font-size:29px;font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:3px}
+.st-v em{color:var(--red);font-style:normal}
+.st-l{font-family:var(--fm);font-size:11.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
+.ov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ovc{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rl);padding:16px;cursor:pointer;transition:border-color .13s,background .13s,transform .13s}
+.ovc:hover{border-color:var(--b2);background:var(--s3);transform:translateY(-1px)}
+.ovc-n{font-family:var(--fm);font-size:10.5px;color:var(--t4);margin-bottom:7px}
+.ovc-t{font-family:var(--fd);font-size:14px;font-weight:600;margin-bottom:3px}
+.ovc-d{font-size:13.5px;color:var(--t2);line-height:1.5;font-weight:500}
+.ovc-a{font-size:12.5px;color:var(--t3);margin-top:9px}
+
+/* CRANK DEFINITION BOXES */
+.crank-defs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+.cdef{border-radius:var(--rl);padding:18px 14px;border:1px solid}
+.cdef-letter{font-family:var(--fd);font-size:33px;font-weight:700;line-height:1;margin-bottom:6px}
+.cdef-word{font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.cdef-def{font-size:13.5px;line-height:1.55;font-weight:500}
+
+/* FLYWHEEL */
+.fw-ring{display:flex;margin-bottom:16px;border:1px solid var(--b1);border-radius:var(--rl);overflow:hidden;background:var(--b1)}
+.fwp{flex:1;padding:18px 12px;background:var(--s2);cursor:pointer;transition:background .13s;position:relative;border-right:1px solid var(--b1)}
+.fwp:last-child{border-right:none}
+.fwp:hover,.fwp.on{background:var(--s3)}
+.fwp.on::after{content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--pc,var(--red))}
+.fwn{font-family:var(--fd);font-size:19px;font-weight:700;line-height:1.15;margin-bottom:6px}
+.fwt{font-size:13px;color:var(--t2);line-height:1.5;font-weight:500}
+.fwh{font-family:var(--fm);font-size:11px;color:var(--t4);margin-top:7px}
+.fw-det{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rl);overflow:hidden;margin-bottom:14px;min-height:190px}
+.fwdh{padding:14px 18px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:10px}
+.fwdb{padding:18px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.fwdc label{font-family:var(--fm);font-size:11.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:7px}
+.fwdt{font-size:13.5px;color:var(--t2);line-height:1.65}
+.fwex{background:var(--s3);border-left:2px solid;padding:10px 12px;border-radius:0 5px 5px 0;font-size:13px;color:var(--t2);line-height:1.6;margin-top:6px}
+.fwex strong{display:block;font-family:var(--fm);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.fw-ln{display:flex;align-items:center;gap:9px;font-family:var(--fm);font-size:12.5px;color:var(--t3);padding:9px 13px;border:1px solid var(--b1);border-radius:6px;background:var(--s2)}
+
+/* CONTRACT */
+.ccc{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+.cc{border-radius:var(--rl);padding:22px;border:1px solid;cursor:pointer;position:relative;overflow:hidden;transition:transform .13s}
+.cc:hover{transform:translateY(-2px)}
+.cc-n{font-family:var(--fd);font-size:45px;font-weight:700;opacity:.1;line-height:1;position:absolute;top:8px;right:14px}
+.cc-r{font-family:var(--fd);font-size:16px;font-weight:600;line-height:1.2;margin-bottom:9px}
+.cc-b{font-size:13.5px;line-height:1.65;margin-bottom:12px;font-weight:500}
+.cc-ap{font-family:var(--fm);font-size:12.5px;padding:7px 10px;border-radius:4px;margin-bottom:9px;line-height:1.5}
+.cc-ap-label{font-size:11.5px;font-weight:600;margin-bottom:3px;text-transform:uppercase;letter-spacing:.06em}
+
+/* KICK */
+.kick-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.kick-meeting{border-radius:var(--rl);overflow:hidden;border:1px solid}
+.kick-mh{padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.kick-mt{font-family:var(--fd);font-size:15px;font-weight:600;margin-bottom:2px}
+.kick-ms{font-size:12.5px;opacity:.7;font-weight:500}
+.kick-attendees{padding:8px 16px;border-bottom:1px solid rgba(255,255,255,.08);font-size:12.5px;font-weight:500}
+.kick-attendees strong{font-weight:600}
+.kick-blocks{padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.kb{padding:10px 12px;border-radius:var(--r);border:1px solid rgba(255,255,255,.07)}
+.kbt{font-family:var(--fm);font-size:10.5px;margin-bottom:3px}
+.kbn{font-family:var(--fd);font-size:14.5px;font-weight:600;margin-bottom:5px}
+.kbp{font-size:13.5px;line-height:1.55;font-weight:500}
+.kbe{font-size:12.5px;font-weight:600;margin-top:5px}
+.kick-note{border-top:1px solid rgba(255,255,255,.07);padding:9px 16px;font-size:12.5px;font-style:italic}
+
+/* ROLES */
+.rols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.roc{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rl);padding:16px;cursor:pointer;transition:border-color .13s,background .13s}
+.roc:hover{border-color:var(--b2);background:var(--s3)}
+.rav{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;margin-bottom:11px;font-family:var(--fm)}
+.rt{font-family:var(--fd);font-size:14.5px;font-weight:600;margin-bottom:2px}
+.rs{font-size:12.5px;color:var(--t3);margin-bottom:9px;font-weight:500}
+.ro{font-family:var(--fm);font-size:10.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.ri{display:flex;gap:6px;font-size:13.5px;color:var(--t2);line-height:1.6;font-weight:500}
+.ri::before{content:"—";color:var(--t4);flex-shrink:0}
+.reh{font-family:var(--fm);font-size:10.5px;color:var(--t4);margin-top:9px}
+
+/* METRICS */
+.mcs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.mc-c{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rl);padding:16px;cursor:pointer;transition:border-color .13s,background .13s}
+.mc-c:hover{border-color:var(--b2);background:var(--s3)}
+.mc-n{font-family:var(--fd);font-size:14.5px;font-weight:600;margin-bottom:3px}
+.mc-d{font-size:13.5px;color:var(--t2);line-height:1.6;margin-bottom:8px;font-weight:500}
+.hrow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.hc{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r);padding:12px;text-align:center}
+.hv{font-family:var(--fd);font-size:21px;font-weight:700;line-height:1;margin-bottom:2px}
+.hl{font-size:12.5px;color:var(--t3);margin-bottom:4px;font-weight:500}
+.hs{font-family:var(--fm);font-size:11.5px;font-weight:600;padding:2px 7px;border-radius:3px;display:inline-block}
+.thr{margin-top:12px;border-top:1px solid var(--b1);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.thr-row{display:flex;align-items:baseline;gap:8px;font-size:12.5px;line-height:1.4}
+.thr-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.thr-zone{font-family:var(--fm);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;width:44px}
+.thr-val{font-family:var(--fm);color:var(--tx);font-weight:500;flex-shrink:0}
+.thr-msg{color:var(--t2)}
+
+/* EDGE CASES */
+.etabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.etab{padding:5px 11px;font-size:13px;font-weight:500;border:1px solid var(--b1);border-radius:4px;cursor:pointer;background:var(--s2);color:var(--t2);transition:all .12s}
+.etab:hover{border-color:var(--b2);color:var(--tx)}
+.etab.on{border-color:var(--rb);color:var(--red);background:var(--rd)}
+.epan{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rl);padding:20px;min-height:190px}
+.esev{font-family:var(--fm);font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:inline-block}
+.ebod{font-size:14.5px;color:var(--t2);line-height:1.7;margin-bottom:14px;font-weight:500}
+.ecols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ecol{background:var(--s3);border-radius:var(--r);padding:13px}
+.ecolh{font-family:var(--fm);font-size:11.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}
+.ei{display:flex;gap:7px;font-size:13.5px;color:var(--t2);line-height:1.5;margin-bottom:4px;font-weight:500}
+
+/* TEMPLATES */
+.ttabs{display:flex;gap:0;border:1px solid var(--b1);border-radius:var(--r);overflow:hidden}
+.ttab{flex:1;padding:8px 6px;font-size:13px;font-weight:500;text-align:center;cursor:pointer;background:var(--s2);color:var(--t2);border-right:1px solid var(--b1);transition:all .12s}
+.ttab:last-child{border-right:none}
+.ttab.on{background:var(--s3);color:var(--tx)}
+.tdoc{border:1px solid var(--b1);border-top:none;border-radius:0 0 var(--rl) var(--rl);background:var(--s2)}
+.thdr{padding:11px 17px;border-bottom:1px solid var(--b1);display:flex;justify-content:space-between;align-items:center;background:var(--s3)}
+.tdl-btn{font-family:var(--fm);font-size:11.5px;font-weight:600;color:var(--tx);background:var(--s4);border:1px solid var(--b2);border-radius:4px;padding:5px 10px;cursor:pointer;transition:background .13s,border-color .13s;white-space:nowrap}
+.tdl-btn:hover{background:var(--s3);border-color:var(--b3)}
+.tht{font-family:var(--fd);font-size:14px;font-weight:600}
+.thm{font-family:var(--fm);font-size:11.5px;color:var(--t3)}
+.tbody{padding:17px}
+.fi{margin-bottom:12px}
+.fl{font-family:var(--fm);font-size:11.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.fv{font-size:14.5px;color:var(--t2);line-height:1.6;font-weight:500}
+.fh{font-size:12.5px;color:var(--t3);font-style:italic;margin-top:2px;font-weight:500}
+.td{height:1px;background:var(--b1);margin:12px 0}
+.tf{padding:9px 17px;border-top:1px solid var(--b1);font-size:12.5px;color:var(--t3);font-style:italic}
+.mblk{font-family:var(--fm);font-size:12.5px;background:var(--s3);padding:9px 11px;border-radius:4px;color:var(--t2);line-height:1.6}
+.sp{display:inline-block;padding:1px 7px;border-radius:3px;font-size:11.5px;font-weight:600;font-family:var(--fm)}
+
+/* SCALING */
+.tiers{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
+.tr{display:grid;grid-template-columns:95px 1fr;gap:10px;align-items:start}
+.tlbl{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r);padding:9px 7px;text-align:center}
+.tn{font-family:var(--fd);font-size:13px;font-weight:600}
+.tc{font-size:11.5px;color:var(--t3);margin-top:2px}
+.tcard{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r);padding:13px}
+.trule{font-size:14.5px;color:var(--t2);line-height:1.6;margin-bottom:7px;font-weight:500}
+
+/* ANTI-PATTERNS */
+.apl{display:flex;flex-direction:column;gap:8px}
+.apc{border:1px solid var(--b1);border-radius:var(--rl);background:var(--s2);overflow:hidden;cursor:pointer;transition:border-color .13s}
+.apc:hover{border-color:var(--b2)}
+.aph{display:flex;align-items:center;gap:9px;padding:11px 15px;border-bottom:1px solid var(--b1);background:var(--s3)}
+.aps{font-family:var(--fm);font-size:11.5px;font-weight:600;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.07em}
+.apn{font-family:var(--fd);font-size:14.5px;font-weight:600;color:var(--tx)}
+.apb{display:none;grid-template-columns:repeat(3,1fr)}
+.apb.open{display:grid}
+.apcol{padding:13px 15px;border-right:1px solid var(--b1);font-size:13.5px;color:var(--t2);line-height:1.6;font-weight:500}
+.apcol:last-child{border-right:none}
+.apch{font-family:var(--fm);font-size:11.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.apex{font-family:var(--fm);font-size:11.5px;color:var(--t3);padding:7px 15px;border-top:1px solid var(--b1);background:var(--s3)}
+
+/* VS AGILE */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.vsc{border-radius:var(--rl);padding:20px;border:1px solid}
+.vsl{font-family:var(--fm);font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:9px}
+.vst{font-family:var(--fd);font-size:21px;font-weight:700;margin-bottom:10px}
+.vsi{display:flex;gap:8px;font-size:14.5px;line-height:1.55;margin-bottom:6px;font-weight:500}
+.verdict{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rl);padding:22px;margin-bottom:18px}
+.verdict h3{margin-bottom:9px}
+.verdict p{font-size:15px;color:var(--t2);line-height:1.75;margin-bottom:10px;font-weight:500}
+.verdict p:last-child{margin-bottom:0}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--s4);border-radius:3px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <div class="nav-brand">
+    <div class="logo-mark">CR<em>A</em>NK<sup style="font-size:8px;color:var(--t3);margin-left:1px">™</sup></div>
+    <div class="logo-sub">Continuous · Rapid · Adaptive · Never Say No · Kinetic</div>
+  </div>
+  <div class="nav-links" id="nav"></div>
+</nav>
+<main class="mn">
+  <div class="pg" id="pg"></div>
+</main>
+<footer class="ftr">
+  <span class="ftr-t">© 2026 Jordon Schulman. All rights reserved.</span>
+  <span class="ftr-sep">·</span>
+  <span class="ftr-t ht">Proprietary and Confidential<div class="tip up">The CRANK framework, including its name, structure, and all associated materials, is the proprietary intellectual property of Jordon Schulman. Unauthorized reproduction, distribution, or derivative use is prohibited without written consent.</div></span>
+</footer>
+<div class="ov" id="ov" onclick="clov(event)"><div class="mo" id="mo"></div></div>
+<script>
+const PLIST=[
+  {id:'overview',l:'Overview',m:'Start here'},
+  {id:'flywheel',l:'The flywheel',m:'C→R→A→N→K',sec:'Core framework'},
+  {id:'contract',l:'Speed contract',m:'3 rules'},
+  {id:'kick',l:'KICK meetings',m:'Dev + Stakeholder'},
+  {id:'roles',l:'Roles & RACI',m:'5 roles',sec:'Operations'},
+  {id:'metrics',l:'Metrics',m:'4 signals'},
+  {id:'onboarding',l:'Onboarding',m:'4 weeks'},
+  {id:'edgecases',l:'Edge cases',m:'6 scenarios',sec:'Reference'},
+  {id:'vsagile',l:'vs Agile',m:'Honest comparison'},
+  {id:'scaling',l:'Scaling guide',m:'4 tiers'},
+  {id:'antipatterns',l:'Anti-patterns',m:'7 failures'},
+  {id:'templates',l:'Templates',m:'5 docs'}
+];
+
+const PH=[
+  {l:'C',c:'#f05a3f',n:'Charge',t:'Gather requirements in motion',
+   w:'Requirements are captured in motion — from Slack threads, conversations, screenshots, or a 5-minute sync. No waiting for a written spec. The CRANK Lead makes the actionability call within 30 minutes. New requirements from Stakeholders mid-cycle are expected — the Intake Coordinator captures and routes them. This assumes the team already understands the client\'s broader goals and scope — that groundwork happens before Cycle 1, as part of engagement setup, not as a CRANK ceremony (see Onboarding).',
+   g:['Signal captured and decision made in under 30 min','Source documented — message link, call note, or screenshot','Stakeholder-introduced requirements routed through Intake Coordinator — not treated as instant blockers'],
+   f:['Waiting for a written requirements doc before starting','Running multiple signals in parallel without a priority call','Treating mid-cycle Stakeholder input as a blocker rather than navigating it'],
+   e:'A Stakeholder sends a Slack message mid-cycle with a new requirement. The Intake Coordinator captures it raw, routes it to the CRANK Lead, who triages it: actionable now, next cycle, or navigated around the current work.'},
+  {l:'R',c:'#e8940a',n:'Run',t:'Build fast, ship faster',
+   w:'Developers build against the Charge signal. Developers own their own Jira tickets and documentation — created from working understanding, not dictated upstream. Output goes live before it feels polished.',
+   g:['Working artifact exists by mid-cycle — not just a plan','Ships to a real environment, not a staging sandbox','Developers create their own Jira tickets and docs as they build'],
+   f:['Spending Run writing documentation before a prototype exists','Shipping only to staging and calling it done','Waiting for someone else to write the ticket before building'],
+   e:'The team builds a working fix by day 2 — rough, missing one edge case. They ship it to production and create their own Jira ticket documenting what they built and what remains.'},
+  {l:'A',c:'#2eb87a',n:'Assess',t:'Fail fast, learn faster',
+   w:'When output does not perform, the team stops, names the failure out loud, and extracts one actionable lesson before moving to Navigate. This happens in the session — not in a scheduled retro.',
+   g:['Failure named explicitly: "we assumed X, it was actually Y"','Lesson stated as action: "next cycle we will Z"','Assessment takes under 20 minutes — a diagnosis, not a debrief'],
+   f:['Reframing failures as "learning opportunities" without naming the mistake','Deferring the lesson to the next KICK instead of extracting it now','Skipping Assess entirely when output was "mostly fine"'],
+   e:'The fix worked but introduced load lag. Team names it: "We optimized for correctness, not performance." Lesson: "Run load test before shipping." Navigate begins immediately.'},
+  {l:'N',c:'#4a8ee8',n:'Navigate',t:'Pivot or double down',
+   w:'With the Assess lesson in hand, the CRANK Lead calls a direction: pivot or double down. Both are valid. The decision is spoken aloud and agreed. No open questions carry into KICK.',
+   g:['Direction stated as a single clear sentence — not a list of options','Decision made by end of current session — no async follow-up','Every team member can repeat the direction from memory'],
+   f:['"We\'ll discuss it more at KICK" — Navigate deferred into the meeting','Decision made but not communicated — team leaves with different assumptions','Pivot called without a rationale tied to the Assess lesson'],
+   e:'Direction called: "Double down — same approach, add load test gate before every production push." Three words for the team: "gate before push."'},
+  {l:'K',c:'#8e6ed4',n:'Kick',t:'Two structured ceremonies',
+   w:'CRANK runs two distinct KICK meetings. The Dev KICK is internal — CRANK Lead and Developers only. The Stakeholder KICK is external — CRANK Lead with Stakeholders and Observers. Both serve alignment. Neither is a status update.',
+   g:['Dev KICK: team resolves blockers and confirms direction internally','Stakeholder KICK: live demo only when necessary — not defaulted','All steering decisions captured in the single CRANK Lead–owned document'],
+   f:['Treating KICK as a status update rather than an alignment session','Defaulting to a live demo when it isn\'t necessary','Leaving questions unasked to keep the meeting short'],
+   e:'Dev KICK Monday: team surfaces a blocker and navigates it internally. Stakeholder KICK Friday: CRANK Lead presents progress, Stakeholder introduces a new requirement, Intake Coordinator logs it, direction confirmed before close.'}
+];
+
+const CR=[
+  {n:'01',r:'Build and document in motion',c:'#f05a3f',bg:'rgba(240,90,63,.07)',bd:'rgba(240,90,63,.22)',
+   b:'Documentation is continuous and Developer-owned — not deferred or handed off. Developers create their own Jira tickets from working understanding as they go. You built it — you document it.',
+   ap:'These slow the project and add no value:',
+   apItems:['Waiting for someone else to write the spec or ticket before building','Scheduling a documentation sprint after the work is done','Requiring BA sign-off before a developer can start'],
+   det:'In a BA-led model, developers receive tickets and requirements pre-written. In CRANK, the Developer is the source of truth — their working understanding of what they built IS the documentation. This produces better, more accurate documentation because it comes from the person closest to the work. This isn\'t a stylistic preference — it targets a well-known failure mode in software delivery: requirements drift. When a BA or PM writes the ticket, the requirement gets compressed and reinterpreted twice before a single line of code exists — once from stakeholder to BA, again from BA to ticket. Developers feel that gap immediately: building against a spec that doesn\'t match what was actually meant, second-guessing intent mid-build, reworking after review. Stakeholders feel it later: what shipped technically satisfies the ticket but misses the actual need. Developer-owned documentation removes one full translation step — the person who understood the requirement is the person who wrote both the code and the record of it.',
+   ex:['Developer creates a Jira ticket with acceptance criteria based on what they are building — not what someone told them to build','Code comments and inline docs written as the Developer works, not in a cleanup sprint','Developer writes a brief "what I built and why" note when closing a ticket']},
+  {n:'02',r:'Fail openly, fix instantly',c:'#e8940a',bg:'rgba(232,148,10,.07)',bd:'rgba(232,148,10,.22)',
+   b:'Failures are named in the open and resolved within the hour. No post-mortems scheduled for later. The fix happens in the same session as the failure.',
+   ap:'These slow the project and add no value:',
+   apItems:['Logging a bug ticket and slotting it into next sprint','Scheduling a retrospective to discuss a failure that happened three days ago','Privately fixing an issue without naming it to the team'],
+   det:'The instinct to defer failure processing feels responsible. In CRANK, that instinct is the failure mode. An unfixed failure compounds: the team builds on a broken foundation for the rest of the cycle. The fix does not have to be perfect — it has to be immediate.',
+   ex:['API returns unexpected null: Developer stops, names the failure to the team, fixes it before writing another line','Integration test fails: root cause identified, fix shipped before close of day','Stakeholder rejects output: failure named in KICK, Navigate call made before meeting closes']},
+  {n:'03',r:'Never say no to change',c:'#8e6ed4',bg:'rgba(142,110,212,.07)',bd:'rgba(142,110,212,.22)',
+   b:'Change is expected — especially from Stakeholders. The Intake Coordinator captures and routes it. The CRANK Lead navigates it. No requirement is a blocker until it is assessed as one.',
+   ap:'These slow the project and add no value:',
+   apItems:['"We can\'t take that on mid-cycle" — said without assessment','Treating every new Stakeholder requirement as a disruption','Waiting until the next cycle to acknowledge incoming change'],
+   det:'The "Never Say No" principle does not mean doing everything immediately. It means every incoming change gets acknowledged, captured, and assessed — never dismissed. The Intake Coordinator ensures nothing falls through the cracks. The CRANK Lead decides what happens next. Consideration isn\'t the same as adoption — some requests get resolved with a better solution than the one proposed, and a smaller number hit a genuine technical limitation. Either way, the requester gets a real answer: what\'s happening instead, and why — not silence.',
+   ex:['Stakeholder introduces a new feature request mid-cycle: Intake Coordinator logs it, CRANK Lead triages within 30 min — it either enters the current cycle, queues for next, or is navigated around','A critical bug surfaces during Run: assessed immediately, not deferred','A blocker from an external dependency: CRANK Lead owns resolution, not the Developer']}
+];
+
+const ROLES=[
+  {i:'CL',c:'#f05a3f',bg:'rgba(240,90,63,.15)',t:'CRANK Lead',s:'Does not rotate — can delegate for breakout sessions',
+   o:['Owns all blockers unless explicitly delegated','Calls Navigate direction — final say when team is split','Facilitates both Dev KICK and Stakeholder KICK — closes when alignment is reached','Maintains the single steering decisions document','Triages incoming requirements with the Intake Coordinator'],
+   d:'The CRANK Lead\'s authority is narrow but unilateral. They own direction and blockers. They do not own the product; that is the Stakeholder. They do not own the build; that is the Developer. Their job is to keep the flywheel moving and ensure alignment across both KICK meetings. They do not rotate — continuity of context is essential to the role. Breakout sessions — smaller, informal sessions held mid-cycle to move a specific initiative or development item forward — can be delegated to free up the CRANK Lead\'s time.',
+   raci:{charge:'A',run:'A',assess:'A',navigate:'R',dev_kick:'A',sh_kick:'A',blockers:'A',intake:'A',steering:'R'}},
+  {i:'DEV',c:'#8e6ed4',bg:'rgba(142,110,212,.15)',t:'Developer',s:'Internal team members doing the work',
+   o:['Owns Run phase output — code, design, or artifact','Creates own Jira tickets and documentation as they build','Names failures immediately in Assess — no waiting','Demos own work at Stakeholder KICK when demo is necessary — no proxy presenters'],
+   d:'Developers own the full lifecycle of their work: building it, ticketing it, documenting it, and demoing it when required. The documentation rule is the most significant shift from traditional models: you create the Jira ticket that describes what you built — not the other way around. Developers attend the Dev KICK. They attend the Stakeholder KICK when a live demo is warranted.',
+   raci:{charge:'C',run:'R',assess:'R',navigate:'C',dev_kick:'R',sh_kick:'C',blockers:'C',intake:'—',steering:'I'}},
+  {i:'SH',c:'#2eb87a',bg:'rgba(46,184,122,.15)',t:'Stakeholder',s:'External team members — attend Stakeholder KICK',
+   o:['Will introduce new requirements mid-cycle — this is expected and navigated, not blocked','Live decisions during Stakeholder KICK steer block','New requirements routed through Intake Coordinator to CRANK Lead','Sends proxy with decision authority if absent'],
+   d:'Stakeholders are external to the build team. Their mid-cycle requirements are not disruptions — they are expected inputs that the Intake Coordinator and CRANK Lead navigate. The Stakeholder\'s job in KICK is to steer, not to receive status updates. They attend the Stakeholder KICK only.',
+   raci:{charge:'I',run:'I',assess:'—',navigate:'C',dev_kick:'—',sh_kick:'R',blockers:'C',intake:'I',steering:'I'}},
+  {i:'IC',c:'#e8940a',bg:'rgba(232,148,10,.15)',t:'Intake Coordinator',s:'Owns intake for change',
+   o:['Captures all new requirements and mid-cycle changes from any source — no filtering','Works with CRANK Lead to triage, document, and delegate items','Routes Stakeholder-introduced requirements — prevents them becoming unmanaged blockers','Maintains signal intake log with full fidelity'],
+   d:'The Intake Coordinator is the funnel for all incoming change. Nothing enters the system without going through them. They do not assess or prioritize — that is the CRANK Lead\'s job. They capture and route with full fidelity. Their most important rule: do not interpret. Pass the raw signal.',
+   raci:{charge:'R',run:'—',assess:'—',navigate:'—',dev_kick:'C',sh_kick:'C',blockers:'—',intake:'R',steering:'C'}},
+  {i:'OB',c:'#72706b',bg:'rgba(114,112,107,.2)',t:'Observer',s:'Guest — no voting rights',
+   o:['Attends Stakeholder KICK only — silent in velocity check','Submits feedback to Stakeholder after the session','Cannot introduce scope or direction changes in the room'],
+   d:'Observers are a concession to organizational reality — sometimes people need visibility without authority. They are strictly silent in the velocity/steer blocks and cannot introduce new requirements. Feedback goes to the Stakeholder after the session.',
+   raci:{charge:'—',run:'—',assess:'—',navigate:'—',dev_kick:'—',sh_kick:'I',blockers:'—',intake:'—',steering:'—'}}
+];
+
+const RACI_ROWS=[
+  ['Charge — signal intake','A','C','I','R','—'],
+  ['Run — build & ship','A','R','I','—','—'],
+  ['Assess — extract lesson','A','R','—','—','—'],
+  ['Navigate — direction call','R','C','C','—','—'],
+  ['Dev KICK','A','R','—','C','—'],
+  ['Stakeholder KICK','A','C','R','C','I'],
+  ['Blocker ownership','A','C','C','—','—'],
+  ['Intake / change routing','A','—','I','R','—'],
+  ['Steering document maintenance','R','I','I','C','—'],
+];
+const RACI_HDRS=['CRANK Lead','Developer','Stakeholder','IC','Observer'];
+
+const MD=[
+  {n:'Cycle time',d:'Time from Charge signal captured to cycle close.',f:'cycle_time = cycle_close − charge_intake',fill:82,c:'#2eb87a',tgt:'2–3 days',
+   det:'Cycle time is the primary flywheel health indicator. Any cycle above 4 days is a Watch signal. Above 5 days for two consecutive cycles is a Red — CRANK Lead calls emergency Navigate before starting the next cycle.',
+   th:[['Green','2–3 days','On track'],['Watch','4–5 days','Investigate before next cycle'],['Red','5+ days','Stop. Navigate. Do not start next cycle.']]},
+  {n:'Blocker resolution rate',d:'Percentage of blockers named in KICK resolved before next KICK.',f:'resolved / total_named × 100',fill:90,c:'#2eb87a',tgt:'≥90%',
+   det:'The CRANK Lead owns all blockers. Unresolved blockers that survive more than one KICK indicate the CRANK Lead is overloaded or the delegation is unclear.',
+   th:[['Green','≥90%','Healthy throughput'],['Watch','75–89%','CRANK Lead reviews ownership at next KICK'],['Red','<75%','CRANK Lead reassesses delegation immediately']]},
+  {n:'Decision latency',d:'Time from a decision point arising to a decision being made.',f:'decision_made_at − decision_triggered_at',fill:65,c:'#e8940a',tgt:'≤2 hours',
+   det:'Decision latency above 2 hours signals that authority is not actually in the room. The CRANK Lead either needs to be pulled in or proxy authority needs to be established before the next KICK.',
+   th:[['Green','≤2 hours','Authority is present'],['Watch','2–4 hours','Check who is blocking the decision'],['Red','4+ hours','CRANK Lead escalates immediately']]},
+  {n:'Ship rate',d:'Cycles in which something shipped to a real environment before cycle close.',f:'cycles_with_shipment / total_cycles × 100',fill:87,c:'#e8940a',tgt:'100%',
+   det:'Ship rate should be 100%. Any cycle with no real shipment is a miss. Staging, Figma prototypes, and Confluence docs do not count. The CRANK Lead must identify the reason before the next Charge begins.',
+   th:[['Green','100%','Flywheel is shipping'],['Watch','80–99%','Identify why before next Charge'],['Red','<80%','Block next Charge until current cycle ships or explicitly closes']]}
+];
+
+const EDGES=[
+  {n:'Stakeholder goes dark',sev:'Process failure',sb:'rgba(240,90,63,.15)',sc:'#f05a3f',
+   b:'A Stakeholder who holds decision authority stops attending the Stakeholder KICK or sends someone without authority. Decisions queue. The steer block becomes a status update. The flywheel spins without direction.',
+   sig:['Stakeholder KICK steer block produces zero committed decisions for two consecutive sessions','Proxy attendees say "I\'ll need to check with [person]"','CRANK Lead making direction calls that should belong to the Stakeholder'],
+   res:['CRANK Lead escalates in writing before next KICK — not during it','Written authority delegation must be received before the session starts','If authority cannot be secured within one cycle, pause that scope from priority-setting']},
+  {n:'Intake overflow',sev:'Process strain',sb:'rgba(232,148,10,.15)',sc:'#e8940a',
+   b:'Too many mid-cycle requirements arriving simultaneously for the Intake Coordinator to process without delay. The CRANK Lead cannot triage fast enough and the team loses direction.',
+   sig:['Intake Coordinator backlog growing across cycles','CRANK Lead spending more than 30 min per cycle on triage','Developers unsure what to work on due to unresolved incoming signals'],
+   res:['CRANK Lead and Intake Coordinator run a 15-min daily triage until backlog clears','Stakeholders briefed: new requirements go through IC, not directly to Developers','Batch low-priority intake items for review at Dev KICK rather than processing individually']},
+  {n:'Team below 3 people',sev:'Structural risk',sb:'rgba(232,148,10,.15)',sc:'#e8940a',
+   b:'CRANK assumes enough people to maintain CRANK Lead, Developer, and Intake Coordinator functions separately. Below 3 people, role overlap becomes total and the flywheel slows mechanically.',
+   sig:['CRANK Lead is also the only Developer','Dev KICK held between two people with no Intake Coordinator','Assess is skipped because the Developer needs to fix the failure immediately'],
+   res:['Acknowledge the constraint explicitly — do not pretend roles are covered','Bring Stakeholder into a co-Developer role temporarily if headcount is the issue','Shrink cycle scope — fewer outputs, same 2–3 day cycle time. Never extend the cycle.']},
+  {n:'Crisis mid-cycle',sev:'Emergency protocol',sb:'rgba(240,90,63,.15)',sc:'#f05a3f',
+   b:'A production incident or external event requires the team\'s full attention mid-cycle. This is the one scenario where the flywheel is paused — not abandoned.',
+   sig:['Production system down affecting real users','Client escalation requires CRANK Lead\'s direct involvement','Incoming scope is genuinely more critical than current cycle work'],
+   res:['CRANK Lead calls emergency Navigate immediately','Current cycle work documented at its current state and paused — not discarded','Crisis becomes the new Charge signal — enter a fresh Run immediately','When crisis resolves, paused work re-enters as the next Charge signal']},
+  {n:'Conflicting signals',sev:'Decision required',sb:'rgba(46,184,122,.15)',sc:'#2eb87a',
+   b:'Multiple high-priority requirements arrive simultaneously through the Intake Coordinator. The CRANK Lead cannot triage without Stakeholder input. Developers unsure where to focus.',
+   sig:['Two or more Stakeholders each believe their item is top priority','CRANK Lead cannot make a unilateral call without more context','Developers split effort across conflicting signals'],
+   res:['CRANK Lead calls a 15-minute priority call with relevant Stakeholders before entering Run','One signal designated primary — others logged and acknowledged by IC','If Stakeholders cannot agree in 15 minutes, CRANK Lead decides and documents the rationale']},
+  {n:'Chronic deceleration',sev:'Existential — flywheel failing',sb:'rgba(240,90,63,.15)',sc:'#f05a3f',
+   b:'Cycle time has crept from 2–3 days to 5, then 7, then 10. Ship rate has dropped. The team has normalized the slowdown. The framework is being performed rather than practiced.',
+   sig:['Cycle time above 4 days for three consecutive cycles','Ship rate below 80% for two or more cycles','KICK decisions are consistently deferred or partial'],
+   res:['Stop the current cycle. Do not complete it.','Run emergency Assess: name the deceleration as a failure, extract the specific cause','Reset: run one tight cycle on the smallest possible scope. Rebuild muscle before returning to normal load','If caused by external pressure, escalate before the next cycle — not after']}
+];
+
+const TPLS=[
+  {n:'Dev KICK agenda',m:'Internal · CRANK Lead + Developers',
+   html:`<div class="fi"><div class="fl">Session</div><div class="fv">Dev KICK — [DATE]</div></div><div class="fi"><div class="fl">Facilitated by</div><div class="fv">CRANK Lead</div></div><div class="fi"><div class="fl">Attendees</div><div class="fv">CRANK Lead · Developers · Intake Coordinator</div><div class="fh">Internal only. No Stakeholders or Observers.</div></div><div class="td"></div><table style="table-layout:fixed"><thead><tr><th>Block</th><th>Agenda</th><th>Owner</th></tr></thead><tbody><tr><td>Steer</td><td>Direction reviewed against the steering document. CRANK Lead confirms current priorities still hold before the team commits more cycle time to them.</td><td>CRANK Lead</td></tr><tr><td>Velocity</td><td>Cycle metrics reviewed — cycle time, ship rate, blocker resolution. Anomalies called out immediately, not carried silently into the next cycle.</td><td>CRANK Lead</td></tr><tr><td>Blocker Triage</td><td>Every open blocker named aloud. CRANK Lead assigns ownership on the spot — resolves it, delegates it, or escalates it. No blocker leaves KICK without a named owner and a next step.</td><td>CRANK Lead</td></tr><tr><td>Q&amp;A</td><td>Open questions surfaced and answered by the team. No question held back. Silence is not permitted.</td><td>All</td></tr><tr><td>Exit / Alignment Check</td><td>Before the room closes, every Developer states their understanding of direction in one sentence. If anyone can't, the meeting isn't done — CRANK Lead re-clarifies until they can.</td><td>All</td></tr></tbody></table><div class="td"></div><div class="fi"><div class="fl">Close condition</div><div class="fv">Meeting closes when alignment is reached and questions are resolved — not by clock.</div></div>`},
+  {n:'Stakeholder KICK agenda',m:'External · CRANK Lead + Stakeholders + Observers',
+   html:`<div class="fi"><div class="fl">Session</div><div class="fv">Stakeholder KICK — [DATE]</div></div><div class="fi"><div class="fl">Facilitated by</div><div class="fv">CRANK Lead</div></div><div class="fi"><div class="fl">Attendees</div><div class="fv">CRANK Lead · Stakeholders (with decision authority) · Observers (silent)</div><div class="fh">Developers attend only when a live demo is warranted.</div></div><div class="td"></div><table style="table-layout:fixed"><thead><tr><th>Block</th><th>Agenda</th><th>Owner</th></tr></thead><tbody><tr><td>Live Demo</td><td>Live product in the room — no slides, no mockups. <b>This block is skipped when there is nothing new to show.</b> Live demos can and do happen outside of KICK — this is not the only venue for them.</td><td>Developer (if needed)</td></tr><tr><td>Steer</td><td>Progress reviewed against the steering document. Stakeholders confirm current priorities still hold or redirect them. New requirements raised here are routed through the Intake Coordinator and logged with a Developer responsible for feasibility review — that review happens after the session, coordinated by the IC, not live in this room, before the item comes back to the Stakeholder for confirmation. Not an instant blocker; not a silent handoff either.</td><td>CRANK Lead</td></tr><tr><td>Velocity</td><td>CRANK Lead shares cycle health — what shipped, what's on track, what's behind. Numbers, not narrative.</td><td>CRANK Lead</td></tr><tr><td>Escalation Path</td><td>If the person in the room doesn\'t hold decision authority, that\'s flagged immediately — not discovered after the meeting ends. CRANK Lead names the gap on the spot, requests written authority before the next KICK, and does not treat a proxy\'s guess as a committed decision.</td><td>CRANK Lead</td></tr><tr><td>Q&amp;A + Team Review</td><td>Open questions from both sides. Stakeholders review what was built. Team reviews what was asked for. Misalignment surfaced here — not discovered later. All decisions logged in the steering document.</td><td>All</td></tr></tbody></table><div class="td"></div><div class="fi"><div class="fl">Steering document</div><div class="fv">All decisions from this session captured in the CRANK Lead–owned steering document before close.</div></div><div class="fi"><div class="fl">Close condition</div><div class="fv">Alignment confirmed. Questions answered. New requirements logged by IC. Meeting closes when done — not by clock.</div></div>`},
+  {n:'Signal intake log',m:'Intake Coordinator · Maintained continuously',
+   html:`<div class="fi"><div class="fl">Signal ID</div><div class="fv">SIG-[DATE]-[N]</div><div class="fh">Auto-increment. Tracks the signal through intake → triage → action.</div></div><div class="fi"><div class="fl">Source</div><div class="fv">[Slack / call / email / meeting / Stakeholder KICK]</div><div class="fh">Paste the raw message or note verbatim. Do not interpret — pass as-is.</div></div><div class="fi"><div class="fl">Received at</div><div class="fv">[Date · Time · Timezone]</div></div><div class="fi"><div class="fl">From</div><div class="fv">[Name · Role]</div></div><div class="td"></div><div class="fi"><div class="fl">Raw signal</div><div class="mblk">[Paste verbatim. No editing, no summarizing.]</div></div><div class="td"></div><div class="fi"><div class="fl">CRANK Lead triage</div><div class="fv">[Current cycle / Next cycle / Backlog / Navigated — with rationale]</div><div class="fh">CRANK Lead completes within 30 minutes of receipt.</div></div><div class="fi"><div class="fl">Resulting decision ID</div><div class="fv">[STR-ID] once this signal is triaged into a committed decision · — while still pending</div><div class="fh">Cross-references the Steering Document. Status of "where this sits" lives in CRANK Lead triage above, not here.</div></div>`},
+  {n:'Cycle close summary',m:'CRANK Lead · Sent within 1 hour of cycle close',
+   html:`<div class="fi"><div class="fl">Cycle</div><div class="fv">[DATE] — Cycle #[N]</div></div><div class="fi"><div class="fl">CRANK Lead</div><div class="fv">[Name]</div></div><div class="td"></div><div class="fi"><div class="fl">What shipped</div><div class="fv">[List every artifact that reached a real environment. Staging does not count. If nothing shipped, state that explicitly.]</div></div><div class="fi"><div class="fl">Developer docs & tickets created</div><div class="fv">[List Jira tickets created by Developers this cycle. This is the documentation audit.]</div></div><div class="fi"><div class="fl">Assess lesson</div><div class="fv">[Format: "We assumed X. It was actually Y. Next cycle we will Z."]</div></div><div class="fi"><div class="fl">Navigate direction</div><div class="fv">[Pivot / Double down — one-sentence rationale.]</div></div><div class="fi"><div class="fl">New requirements received this cycle</div><div class="fv">[List signals captured by IC with triage outcome for each.]</div></div><div class="td"></div><table style="table-layout:fixed"><thead><tr><th style="width:40%">Metric</th><th>This cycle</th><th>Target</th></tr></thead><tbody><tr><td>Cycle time</td><td>[N days]</td><td>2–3 days</td></tr><tr><td>Ship rate</td><td>[Y / N]</td><td>100%</td></tr><tr><td>Blockers resolved</td><td>[N/M]</td><td>≥90%</td></tr><tr><td>Decision latency</td><td>[N hrs]</td><td>≤2 hrs</td></tr></tbody></table>`},
+  {n:'Steering document',m:'Entry format · Owned by CRANK Lead',
+   html:`<div class="fi"><div class="fl">Decision ID</div><div class="fv">STR-[DATE]-[N]</div><div class="fh">Auto-increment. One entry per committed decision, from either KICK. Appended, never overwritten.</div></div><div class="fi"><div class="fl">Date / Source session</div><div class="fv">[Date] · [Dev KICK / Stakeholder KICK]</div></div><div class="td"></div><div class="fi"><div class="fl">Decision</div><div class="fv">[One sentence — the exact direction, stated the way it was spoken aloud in the room.]</div></div><div class="fi"><div class="fl">Rationale</div><div class="fv">[Why. Tied to the Assess lesson if this followed a Navigate call, or to the originating signal if it followed a new requirement.]</div></div><div class="td"></div><div class="fi"><div class="fl">Linked signal</div><div class="fv">[SIG-ID] — if this decision traces back to a Signal Intake Log entry. Blank if it originated inside KICK itself.</div></div><div class="fi"><div class="fl">Developer responsible for feasibility review</div><div class="fv">[Name] — assign at the next Dev KICK if not yet named.</div><div class="fh">Review happens after the session, coordinated by the Intake Coordinator — not live in the Stakeholder KICK room.</div></div><div class="td"></div><div class="fi"><div class="fl">Status</div><div class="fv">Committed / Superseded by [Decision ID]</div></div>`}
+];
+
+const APS=[
+  {sev:'Critical',sb:'rgba(240,90,63,.15)',sc:'#f05a3f',n:'The ghost KICK',what:'KICK is held but produces no live decisions. Stakeholders treat it as a status update and defer everything.',why:'Stakeholders were not briefed that KICK requires in-room decision authority. They attend as passive observers.',fix:'CRANK Lead confirms decision authority in writing before every Stakeholder KICK. If authority is absent, escalate before the session.'},
+  {sev:'Critical',sb:'rgba(240,90,63,.15)',sc:'#f05a3f',n:'Proxy documentation',what:'A BA, PM, or CRANK Lead writes Jira tickets and documentation for the Developer. Developer builds from someone else\'s interpretation.',why:'Traditional delivery habits. Developers are accustomed to receiving tickets. The responsibility shift feels unfamiliar.',fix:'Developers own tickets and docs from day one. CRANK Lead audits that each Developer has created their own tickets from working understanding before cycle close.'},
+  {sev:'High',sb:'rgba(232,148,10,.15)',sc:'#e8940a',n:'Intake bottleneck',what:'New requirements pile up with the IC faster than the CRANK Lead can triage. Developers lose direction while waiting for clarity.',why:'IC is capturing correctly but CRANK Lead triage cadence is too slow — or IC and CRANK Lead aren\'t syncing frequently enough.',fix:'IC and CRANK Lead establish a daily 10-minute triage sync until normal flow resumes. Low-priority items batched for Dev KICK rather than processed individually.'},
+  {sev:'High',sb:'rgba(232,148,10,.15)',sc:'#e8940a',n:'Retrospective deferral',what:'Failures acknowledged in Assess but parked for a retro that never produces action.',why:'Teams conflate KICK with a retro. Assess is the structured moment — not KICK.',fix:'CRANK Lead stops the session immediately when a failure surfaces. Lesson extracted as one-sentence action before anyone moves on.'},
+  {sev:'High',sb:'rgba(232,148,10,.15)',sc:'#e8940a',n:'Comfort sprint',what:'A cycle completes but the only shipment is to staging, Figma, or Confluence. Nothing reached a real environment.',why:'Shipping to production feels risky. Staging feels safe. The team satisfies the letter of CRANK while avoiding the spirit.',fix:'Redefine "shipped" explicitly: shipped means real users can access it. CRANK Lead marks any cycle without real shipment as a miss in the metrics log.'},
+  {sev:'Moderate',sb:'rgba(46,184,122,.15)',sc:'#2eb87a',n:'Flywheel tourism',what:'Stakeholder KICK attendance expands with Observers who slow the room and blur decision authority.',why:'KICK becomes high-visibility. CRANK Lead doesn\'t push back because each request feels low-stakes.',fix:'Stakeholder KICK guest list: CRANK Lead, Stakeholders with authority, Developers when demo is needed, Observers silent. CRANK Lead enforces this.'},
+  {sev:'Moderate',sb:'rgba(46,184,120,.15)',sc:'#2eb87a',n:'Navigate paralysis',what:'"We should probably pivot" — direction discussed but never explicitly committed. Next Charge begins with ambiguous direction.',why:'Pivot decisions feel high-stakes. Teams avoid committing to a direction that might be wrong.',fix:'Navigate ends only when CRANK Lead states direction in one sentence and every Developer repeats it back. If they can\'t, it isn\'t clear enough.'}
+];
+
+// ── NAV BUILD ──────────────────────────────────────────────────────────────────
+const nav=document.getElementById('nav');
+let lastSec='';
+PLIST.forEach((p,i)=>{
+  if(p.sec&&p.sec!==lastSec){
+    if(lastSec){const sep=document.createElement('div');sep.className='nav-sep';nav.appendChild(sep);}
+    lastSec=p.sec;
+  }
+  const el=document.createElement('div');el.className='ni'+(i===0?' on':'');el.dataset.id=p.id;
+  el.innerHTML=p.id==='overview'?p.l:`<span class="ni-n">${String(i).padStart(2,'0')}</span>${p.l}`;
+  el.onclick=()=>go(p.id);nav.appendChild(el);
+});
+
+function go(id){
+  document.querySelectorAll('.ni').forEach(el=>el.classList.toggle('on',el.dataset.id===id));
+  const pg=document.getElementById('pg');
+  pg.innerHTML=rPg(id);pg.scrollTop=0;
+  init(id);
+}
+
+function rPg(id){
+  const m={overview:rOV,flywheel:rFW,contract:rCC,kick:rKK,roles:rRL,metrics:rMT,onboarding:rOB,edgecases:rEC,templates:rTP,scaling:rSC,antipatterns:rAP,vsagile:rVA};
+  return(m[id]||rOV)();
+}
+function init(id){
+  if(id==='flywheel')sPh(0);
+  if(id==='edgecases')sEd(0);
+  if(id==='templates')sTp(0);
+}
+
+// ── OVERVIEW ────────────────────────────────────────────────────────────────────
+function rOV(){
+  const D={flywheel:'Five phases, 2–3 day cycles, no cooldown between rotations.',contract:'Three rules. Build in motion. Fail fast. Never say no to change.',kick:'Two meetings: Dev KICK (internal) and Stakeholder KICK (external).',roles:'Five roles, no overlap. Each owns exactly one piece — direction, build, intake, steer, or scope.',metrics:'Four primary signals and how to act when they turn red.',onboarding:'Four weeks from zero to full velocity.',edgecases:'Six stress scenarios and the specific response protocol for each.',templates:'Ready-to-use docs for both KICKs, intake log, steering document, and cycle close.',scaling:'How the flywheel architecture changes from solo team to org-wide.',antipatterns:'Seven recurring failures sorted by severity, each with a specific fix.',vsagile:'An honest analysis of where CRANK wins and where Agile holds its ground.'};
+  return`<h1>CR<span style="color:var(--red)">A</span>NK<sup style="font-size:14px;color:var(--t3);margin-left:2px">™</sup></h1>
+<div class="ov-punch">Scrum delivers a plan, revisited every two weeks. CRANK delivers solutions, every two to three days.</div>
+<div class="crank-defs g5" style="margin-bottom:20px">
+  <div class="cdef" style="background:rgba(240,90,63,.08);border-color:rgba(240,90,63,.25)"><div class="cdef-letter" style="color:var(--red)">C</div><div class="cdef-word" style="color:var(--red)">Continuous</div><div class="cdef-def" style="color:rgba(240,128,112,.8)">Momentum never stops. Every pause breaks the flywheel. Velocity is non-optional.</div></div>
+  <div class="cdef" style="background:rgba(232,148,10,.08);border-color:rgba(232,148,10,.25)"><div class="cdef-letter" style="color:var(--amber)">R</div><div class="cdef-word" style="color:var(--amber)">Rapid</div><div class="cdef-def" style="color:rgba(232,180,80,.8)">Short cycles surface real feedback faster than any planning session. Speed is the method.</div></div>
+  <div class="cdef" style="background:rgba(46,184,122,.08);border-color:rgba(46,184,122,.25)"><div class="cdef-letter" style="color:var(--green)">A</div><div class="cdef-word" style="color:var(--green)">Adaptive</div><div class="cdef-def" style="color:rgba(80,200,140,.8)">Change is expected — especially mid-cycle. The Intake Coordinator captures it. The CRANK Lead navigates it.</div></div>
+  <div class="cdef" style="background:rgba(74,142,232,.08);border-color:rgba(74,142,232,.25)"><div class="cdef-letter" style="color:var(--blue)">N</div><div class="cdef-word" style="color:var(--blue)">Never Say No</div><div class="cdef-def" style="color:rgba(120,170,240,.8)">No requirement is dismissed. Considered doesn't always mean adopted — every request gets a real answer, not silence.</div></div>
+  <div class="cdef" style="background:rgba(142,110,212,.08);border-color:rgba(142,110,212,.25)"><div class="cdef-letter" style="color:var(--purple)">K</div><div class="cdef-word" style="color:var(--purple)">Kinetic</div><div class="cdef-def" style="color:rgba(170,140,230,.8)">All parties stay aligned while the work keeps moving. Alignment is continuous — not a scheduled event.</div></div>
+</div>
+<p style="font-family:var(--fm);font-size:16px;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:28px"><span style="color:var(--red)">▶</span> A shark that stops swimming sinks. So does a team.</p>
+<div class="ov-stats">
+<div class="st ht"><div class="st-v">2–3<em>d</em></div><div class="st-l">Cycle time target</div><div class="tip dn"><div class="tip-h">Cycle time</div>Every C→R→A→N→K rotation must complete in 2–3 days. Development items may span multiple cycles — the CRANK Lead determines the boundary per item.</div></div>
+<div class="st ht"><div class="st-v">2<em>×</em></div><div class="st-l">KICK meetings</div><div class="tip dn"><div class="tip-h">Two KICK meetings</div>Dev KICK: internal, CRANK Lead + Developers + Intake Coordinator. Stakeholder KICK: external, CRANK Lead + Stakeholders + Observers. Both close when alignment is reached.</div></div>
+<div class="st ht"><div class="st-v">2<em>h</em></div><div class="st-l">Max decision latency</div><div class="tip dn"><div class="tip-h">Decide promptly</div>All decisions should be made within 2 hours. Longer latency signals that authority is missing from the room.</div></div>
+<div class="st ht"><div class="st-v">0<em>×</em></div><div class="st-l">Requirements rejected outright</div><div class="tip dn"><div class="tip-h">Never Say No</div>No requirement is dismissed without a real answer. Every incoming change is captured by the IC and assessed by the CRANK Lead — adoption isn\'t guaranteed, but consideration is.</div></div>
+</div>
+<div class="ov-grid">${PLIST.filter(p=>p.id!=='overview').map((p,i)=>`<div class="ovc" onclick="go('${p.id}')"><div class="ovc-n">${String(i+1).padStart(2,'0')}</div><div class="ovc-t">${p.l}</div><div class="ovc-d">${D[p.id]||''}</div><div class="ovc-a">→</div></div>`).join('')}</div>`;
+}
+
+// ── FLYWHEEL ─────────────────────────────────────────────────────────────────
+function rFW(){
+  return`<div class="ey">01 — The flywheel</div><h2>Five phases. 2–3 days.<br>No cooldown.</h2>
+<p class="lead">Every 2–3 days completes a full rotation. Multiple cycles run between each KICK meeting. Stopping the wheel is a failure state. Click any phase to explore it fully.</p>
+<div class="fw-ring">${PH.map((p,i)=>`<div class="fwp${i===0?' on':''}" style="--pc:${p.c}" onclick="sPh(${i})"><div class="fwn"><span style="color:${p.c}">${p.n[0]}</span>${p.n.slice(1)}</div><div class="fwt">${p.t}</div><div class="fwh">click to expand ↓</div></div>`).join('')}</div>
+<div class="fw-det" id="fwd"></div>
+<div class="fw-ln"><span style="color:var(--red);font-size:13px">↺</span><span>Cycle repeats immediately — no cooldown, no planning buffer. 2–3 cycles complete between each weekly KICK.</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+<div class="csm"><div class="ml">Standard cycle — 2–3 days</div><div style="font-size:13px;color:var(--t2);line-height:1.6">Charge → Run → Assess → Navigate → close. Full rotation. KICK meetings are separate from the cycle cadence.</div></div>
+<div class="csm" style="border-color:var(--rb);background:var(--rd)"><div class="ml" style="color:var(--red)">Multi-cycle development items</div><div style="font-size:13px;color:rgba(240,128,112,.8);line-height:1.6">CRANK Lead determines the boundary per item. At each boundary: ship a slice, demo internally, or carry forward with a named milestone. Decision spoken aloud — never implicit.</div></div>
+</div>`;
+}
+
+function sPh(i){
+  document.querySelectorAll('.fwp').forEach((el,idx)=>el.classList.toggle('on',idx===i));
+  const p=PH[i];
+  document.getElementById('fwd').innerHTML=`<div class="fwdh"><div><div style="font-family:var(--fd);font-size:17px;font-weight:700"><span style="color:${p.c}">${p.n[0]}</span>${p.n.slice(1)}</div><div style="font-size:12px;color:var(--t2);font-weight:500">${p.t}</div></div></div>
+<div class="fwdb"><div class="fwdc"><label>What happens</label><div class="fwdt">${p.w}</div></div>
+<div class="fwdc"><label>Done right</label>${p.g.map(g=>`<div class="li"><div class="dot dg"></div><span>${g}</span></div>`).join('')}<label style="margin-top:11px">Failure modes</label>${p.f.map(f=>`<div class="li"><div class="dot dr"></div><span>${f}</span></div>`).join('')}</div>
+<div class="fwdc"><label>Real example</label><div class="fwex" style="border-color:${p.c}"><strong style="color:${p.c}">Example</strong>${p.e}</div></div></div>`;
+}
+
+// ── CONTRACT ─────────────────────────────────────────────────────────────────
+function rCC(){
+  return`<div class="ey">02 — The speed contract</div><h2>Three non-negotiable rules.</h2>
+<p class="lead">Not guidelines. Not targets. Rules enforced in real time, every cycle. Click any rule to read the full rationale and examples.</p>
+<div class="ccc">${CR.map((r,i)=>`<div class="cc" style="background:${r.bg};border-color:${r.bd}" onclick="oCR(${i})"><div class="cc-n" style="color:${r.c}">${r.n}</div><div class="cc-r" style="color:${r.c}">${r.r}</div><div class="cc-b" style="color:${r.c};opacity:.75">${r.b}</div><div class="cc-ap" style="background:rgba(0,0,0,.12)"><div class="cc-ap-label" style="color:${r.c}">${r.ap}</div>${r.apItems.map(item=>`<div style="font-size:11px;color:${r.c};opacity:.7;margin-top:3px">✗  ${item}</div>`).join('')}</div><div style="font-family:var(--fm);font-size:9px;color:${r.c};opacity:.55;margin-top:8px">Click for full rationale + examples →</div></div>`).join('')}</div>
+<div class="sr"></div><div class="ml">How the rules connect</div>
+<div class="tw"><table><thead><tr><th>Rule</th><th>Who enforces it</th><th>What breaks without it</th></tr></thead><tbody>
+<tr><td class="tb">Build and document in motion</td><td>Every Developer, audited by CRANK Lead</td><td>Documentation becomes a separate project. Tickets reflect someone else's understanding of the work.</td></tr>
+<tr><td class="tb">Fail openly, fix instantly</td><td>CRANK Lead stops the session when a failure surfaces</td><td>Failures compound. The team builds on a broken foundation for the rest of the cycle.</td></tr>
+<tr><td class="tb">Never say no to change</td><td>Intake Coordinator captures, CRANK Lead triages</td><td>Stakeholder requirements pile up unacknowledged or create unmanaged blockers.</td></tr>
+</tbody></table></div>`;
+}
+
+function oCR(i){
+  const r=CR[i];
+  oMo(`<div class="moh"><div><div style="font-family:var(--fm);font-size:10px;color:${r.c};text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Rule ${r.n}</div><div class="mot" style="color:${r.c}">${r.r}</div></div><div class="mox" onclick="clov()">×</div></div>
+<div class="mob"><div style="font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:14px">${r.det}</div>
+<div class="ml">In practice</div>
+${r.ex.map(e=>`<div class="ci" style="margin-bottom:8px">${e}</div>`).join('')}
+<div style="margin-top:14px;padding:12px 14px;background:rgba(0,0,0,.2);border-radius:6px">
+<div style="font-size:11px;font-weight:600;color:${r.c};margin-bottom:6px">${r.ap}</div>
+${r.apItems.map(item=>`<div style="font-size:12px;color:var(--t2);margin-bottom:4px">✗  ${item} — <em style="color:var(--t3)">this is unnecessary and hurts the project</em></div>`).join('')}
+</div></div>`);
+}
+
+// ── KICK MEETINGS ────────────────────────────────────────────────────────────
+function rKK(){
+  return`<div class="ey">03 — KICK meetings</div><h2>Two meetings.<br>One source of truth.</h2>
+<p class="lead">CRANK runs two distinct KICK meetings with different attendees and different purposes. Steering decisions from both are captured in a single document owned by the CRANK Lead. Both meetings close when alignment is reached — not by clock.</p>
+<div class="kick-split">
+  <div class="kick-meeting" style="border-color:rgba(74,142,232,.3)">
+    <div class="kick-mh" style="background:rgba(74,142,232,.1)">
+      <div class="kick-mt" style="color:#85aee8">Dev KICK</div>
+      <div class="kick-ms" style="color:rgba(133,174,232,.65)">Internal — team alignment</div>
+    </div>
+    <div class="kick-attendees" style="background:rgba(74,142,232,.06)">
+      <strong style="color:#85aee8">Attendees:</strong> <span style="color:var(--t2)">CRANK Lead · Developers · Intake Coordinator</span>
+    </div>
+    <div class="kick-blocks">
+      <div class="kb" style="background:rgba(74,142,232,.06)">
+        <div class="kbt" style="color:var(--blue)">Block 01</div>
+        <div class="kbn">Steer</div>
+        <div class="kbp">Direction reviewed against the steering document. CRANK Lead confirms current priorities still hold before the team commits more cycle time to them.</div>
+      </div>
+      <div class="kb" style="background:rgba(74,142,232,.06)">
+        <div class="kbt" style="color:var(--blue)">Block 02</div>
+        <div class="kbn">Velocity</div>
+        <div class="kbp">Cycle metrics reviewed — cycle time, ship rate, blocker resolution. Anomalies called out immediately, not carried silently into the next cycle.</div>
+      </div>
+      <div class="kb" style="background:rgba(74,142,232,.06)">
+        <div class="kbt" style="color:var(--blue)">Block 03</div>
+        <div class="kbn">Blocker Triage</div>
+        <div class="kbp">Every open blocker named aloud. CRANK Lead assigns ownership on the spot — resolves it, delegates it, or escalates it. No blocker leaves KICK without a named owner and a next step.</div>
+      </div>
+      <div class="kb" style="background:rgba(74,142,232,.06)">
+        <div class="kbt" style="color:var(--blue)">Block 04</div>
+        <div class="kbn">Q &amp; A</div>
+        <div class="kbp">Open questions surfaced and answered by the team. No question held back. Silence is not permitted.</div>
+      </div>
+      <div class="kb" style="background:rgba(74,142,232,.06)">
+        <div class="kbt" style="color:var(--blue)">Block 05</div>
+        <div class="kbn">Exit / Alignment Check</div>
+        <div class="kbp">Before the room closes, every Developer states their understanding of direction in one sentence. If anyone can't, the meeting isn't done — CRANK Lead re-clarifies until they can.</div>
+        <div class="kbe" style="color:var(--blue)">Alignment confirmed — not assumed.</div>
+      </div>
+    </div>
+    <div class="kick-note" style="color:var(--t3)">Closes when alignment is reached and questions are resolved.</div>
+  </div>
+  <div class="kick-meeting" style="border-color:rgba(46,184,122,.3)">
+    <div class="kick-mh" style="background:rgba(46,184,122,.1)">
+      <div class="kick-mt" style="color:#70d4a0">Stakeholder KICK</div>
+      <div class="kick-ms" style="color:rgba(80,200,140,.65)">External — stakeholder alignment</div>
+    </div>
+    <div class="kick-attendees" style="background:rgba(46,184,122,.06)">
+      <strong style="color:#70d4a0">Attendees:</strong> <span style="color:var(--t2)">CRANK Lead · Stakeholders · Observers</span><br>
+      <span style="color:var(--t3);font-size:10px">Developers join only when a live demo is warranted.</span>
+    </div>
+    <div class="kick-blocks">
+      <div class="kb" style="background:rgba(46,184,122,.06)">
+        <div class="kbt" style="color:var(--green)">Block 01 — when necessary</div>
+        <div class="kbn">Live Demo</div>
+        <div class="kbp">Live product in the room — no slides, no mockups. <strong>This block is skipped when there is nothing new to show.</strong> Live demos can and do happen outside of KICK — this is not the only venue for them.</div>
+        <div class="kbe" style="color:var(--green)">Only when warranted. Not a default.</div>
+      </div>
+      <div class="kb" style="background:rgba(46,184,122,.06)">
+        <div class="kbt" style="color:var(--green)">Block 02</div>
+        <div class="kbn">Steer</div>
+        <div class="kbp">Progress reviewed against the steering document. Stakeholders confirm current priorities still hold or redirect them. New requirements raised here are routed through the Intake Coordinator and logged with a Developer responsible for feasibility review — that review happens after the session, coordinated by the IC, not live in this room, before the item comes back to the Stakeholder for confirmation. Not an instant blocker; not a silent handoff either.</div>
+      </div>
+      <div class="kb" style="background:rgba(46,184,122,.06)">
+        <div class="kbt" style="color:var(--green)">Block 03</div>
+        <div class="kbn">Velocity</div>
+        <div class="kbp">CRANK Lead shares cycle health — what shipped, what's on track, what's behind. Numbers, not narrative.</div>
+      </div>
+      <div class="kb" style="background:rgba(46,184,122,.06)">
+        <div class="kbt" style="color:var(--green)">Block 04</div>
+        <div class="kbn">Escalation Path</div>
+        <div class="kbp">If the person in the room doesn't hold decision authority, that's flagged immediately — not discovered after the meeting ends. CRANK Lead names the gap on the spot, requests written authority before the next KICK, and does not treat a proxy's guess as a committed decision.</div>
+      </div>
+      <div class="kb" style="background:rgba(46,184,122,.06)">
+        <div class="kbt" style="color:var(--green)">Block 05</div>
+        <div class="kbn">Q &amp; A + Team Review</div>
+        <div class="kbp">Open questions from both sides. Stakeholders review what was built. Team reviews what was asked for. Misalignment surfaced here — not discovered later. All decisions logged in the steering document.</div>
+        <div class="kbe" style="color:var(--green)">Alignment confirmed. New requirements logged.</div>
+      </div>
+    </div>
+    <div class="kick-note" style="color:var(--t3)">Closes when alignment is reached. All steering decisions captured in CRANK Lead document before close.</div>
+  </div>
+</div>
+<div class="alert"><div class="at">One steering document — owned by the CRANK Lead</div><div class="ab">All decisions from both KICK meetings are captured in a single document owned by the CRANK Lead. This is the source of truth for direction. It is not a meeting summary — it is a living record of committed decisions.</div></div>
+<div class="sr"></div>
+<div class="g2">
+<div class="card"><div class="ml">Why two meetings</div><div style="font-size:13px;color:var(--t2);line-height:1.65">The Dev KICK keeps internal alignment tight without external noise. The Stakeholder KICK surfaces Stakeholder direction without it disrupting Developer flow mid-cycle. Mixing the two creates competing dynamics — Developers self-censor in front of Stakeholders, and Stakeholders receive more operational detail than they need.</div></div>
+<div class="card"><div class="ml">When to hold each</div><div style="font-size:13px;color:var(--t2);line-height:1.65">Dev KICK runs on a fixed, scheduled cadence tied to the cycle itself — every cycle, not spawned by any individual signal. Routine signals (Slack messages, hallway conversations, small Jira tickets) are handled asynchronously between scheduled KICKs; they surface at the next one, they don't create a new one. Stakeholder KICK is held on a cadence agreed with Stakeholders — weekly is common, but not mandatory. The only exception is a genuine emergency — see Crisis mid-cycle on Edge Cases — which gets an immediate CRANK Lead call, not an ad hoc meeting.</div></div>
+</div>`;
+}
+
+// ── ROLES ─────────────────────────────────────────────────────────────────────
+function rRL(){
+  const cm={'A':'rgba(240,90,63,.15):#f05a3f','R':'rgba(142,110,212,.15):#8e6ed4','C':'rgba(74,142,232,.15):#4a8ee8','I':'rgba(90,88,85,.2):#72706b'};
+  return`<div class="ey">04 — Roles & responsibilities</div><h2>Five roles.<br>Clear ownership.</h2>
+<p class="lead">Fewer owners means clearer accountability. The CRANK Lead owns direction and blockers. The Intake Coordinator owns change intake. Developers own the build. Click any role for full detail.</p>
+<div class="rols">${ROLES.map((r,i)=>`<div class="roc" onclick="oRL(${i})"><div class="rav" style="background:${r.bg};color:${r.c}">${r.i}</div><div class="rt">${r.t}</div><div class="rs">${r.s}</div><div class="ro">Owns</div>${r.o.map(o=>`<div class="ri">${o}</div>`).join('')}<div class="reh">Click for full detail + RACI →</div></div>`).join('')}</div>
+<div class="sr"></div><div class="ml">RACI matrix</div>
+<div class="tw"><table style="table-layout:fixed"><thead><tr><th style="width:28%">Activity</th>${RACI_HDRS.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>
+${RACI_ROWS.map(row=>`<tr><td class="tb">${row[0]}</td>${row.slice(1).map((v,ci)=>{const cs=cm[v];return v==='—'?`<td style="color:var(--t4);text-align:center">—</td>`:`<td style="text-align:center"><span class="rb" style="background:${cs.split(':')[0]};color:${cs.split(':')[1]}">${v}</span></td>`;}).join('')}</tr>`).join('')}
+</tbody></table></div>
+<p style="font-family:var(--fm);font-size:10px;color:var(--t3);margin-top:7px">R = Responsible · A = Accountable · C = Consulted · I = Informed</p>`;
+}
+
+function oRL(i){
+  const r=ROLES[i];
+  const cm={'A':'rgba(240,90,63,.15):#f05a3f','R':'rgba(142,110,212,.15):#8e6ed4','C':'rgba(74,142,232,.15):#4a8ee8','I':'rgba(90,88,85,.2):#72706b'};
+  const raciKeys=[['Charge — signal intake','charge'],['Run — build & ship','run'],['Assess — extract lesson','assess'],['Navigate — direction call','navigate'],['Dev KICK','dev_kick'],['Stakeholder KICK','sh_kick'],['Blocker ownership','blockers'],['Intake / change routing','intake'],['Steering document maintenance','steering']];
+  oMo(`<div class="moh"><div style="display:flex;align-items:center;gap:11px"><div style="width:34px;height:34px;border-radius:50%;background:${r.bg};color:${r.c};display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:11px;font-weight:700;flex-shrink:0">${r.i}</div><div><div class="mot">${r.t}</div><div style="font-size:12px;color:var(--t3)">${r.s}</div></div></div><div class="mox" onclick="clov()">×</div></div>
+<div class="mob"><div style="font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:14px">${r.d}</div>
+<div class="ml">RACI — this role</div>
+<div class="tw"><table><thead><tr><th>Activity</th><th style="width:80px;text-align:center">Role</th></tr></thead><tbody>
+${raciKeys.map(([lbl,key])=>{const v=r.raci[key];const cs=cm[v];return`<tr><td class="tb">${lbl}</td><td style="text-align:center">${v==='—'?`<span style="color:var(--t4)">—</span>`:`<span class="rb" style="background:${cs.split(':')[0]};color:${cs.split(':')[1]}">${v}</span>`}</td></tr>`;}).join('')}
+</tbody></table></div>
+<p style="font-family:var(--fm);font-size:10px;color:var(--t3);margin-top:6px">R = Responsible · A = Accountable · C = Consulted · I = Informed</p>
+</div>`);
+}
+
+// ── METRICS ───────────────────────────────────────────────────────────────────
+function rMT(){
+  return`<div class="ey">05 — Metrics</div><h2>How you know it's working.</h2>
+<p class="lead">Four primary signals. When any enters Watch or Red — the CRANK Lead acts before the next cycle begins. Each card shows its own Green / Watch / Red thresholds. Click a card for the fuller explanation.</p>
+<div class="mcs">${MD.map((m,i)=>{const zc=['#2eb87a','#e8940a','#f05a3f'];return `<div class="mc-c" onclick="oMC(${i})"><div class="mc-n">${m.n}</div><div class="mc-d">${m.d}</div><div class="mc">${m.f}</div><div class="bw"><div class="bt"><div class="bf" style="width:${m.fill}%;background:${m.c}"></div></div><div class="bl">Target: ${m.tgt} · example fill</div></div><div class="thr">${m.th.map(([z,v,msg],zi)=>`<div class="thr-row"><div class="thr-dot" style="background:${zc[zi]}"></div><span class="thr-zone" style="color:${zc[zi]}">${z}</span><span class="thr-val">${v}</span><span class="thr-msg">${msg}</span></div>`).join('')}</div><div style="font-family:var(--fm);font-size:9px;color:var(--t4);margin-top:9px">Click for full explanation →</div></div>`;}).join('')}</div>
+<div class="ml" style="display:flex;align-items:center;gap:8px">Flywheel health <span class="badge" style="background:var(--s3);color:var(--t3)">Example reading</span></div>
+<div class="hrow">
+<div class="hc ht"><div class="hv" style="color:#2eb87a">2–3d</div><div class="hl">Avg cycle time</div><span class="hs" style="background:var(--gd);color:var(--green)">On target</span><div class="tip up"><div class="tip-h">Cycle time</div>Target: 2–3 days. Watch: 4–5 days. Red: 5+ days — CRANK Lead calls emergency Navigate.</div></div>
+<div class="hc ht"><div class="hv" style="color:#2eb87a">94%</div><div class="hl">Blocker resolution</div><span class="hs" style="background:var(--gd);color:var(--green)">On target</span><div class="tip up"><div class="tip-h">Blocker resolution</div>Target: ≥90%. Watch: 75–89%. Red: below 75% — CRANK Lead reassesses delegation.</div></div>
+<div class="hc ht"><div class="hv" style="color:#e8940a">3.2h</div><div class="hl">Decision latency</div><span class="hs" style="background:var(--ad);color:var(--amber)">Watch</span><div class="tip up"><div class="tip-h">Decision latency — Watch</div>3.2h signals authority is missing from the room. CRANK Lead checks who is blocking the decision.</div></div>
+<div class="hc ht"><div class="hv" style="color:#e8940a">87%</div><div class="hl">Ship rate</div><span class="hs" style="background:var(--ad);color:var(--amber)">Watch</span><div class="tip up"><div class="tip-h">Ship rate — Watch</div>87% means one in eight cycles isn't shipping to a real environment. CRANK Lead identifies cause before next Charge.</div></div>
+</div>
+<div class="alert"><div class="at">Decision latency above 2-hour signal</div><div class="ab">A reading like this — decision latency creeping past 2 hours — signals authority isn't present in the room during KICK. If you see it, confirm Stakeholder proxy authority before the next Stakeholder KICK and surface decisions in the Steer block rather than deferring.</div></div>
+<div class="sr"></div><div class="ml">Red action thresholds</div>
+<div class="tw"><table style="table-layout:fixed"><thead><tr><th style="width:22%">Metric</th><th style="width:20%">Green</th><th style="width:20%">Watch</th><th>Red action</th></tr></thead><tbody>
+<tr><td class="tb">Cycle time</td><td style="color:var(--green)">2–3 days</td><td style="color:var(--amber)">4–5 days</td><td>CRANK Lead calls emergency Navigate immediately</td></tr>
+<tr><td class="tb">Blocker resolution</td><td style="color:var(--green)">≥90%</td><td style="color:var(--amber)">75–89%</td><td>CRANK Lead reviews delegation — reassigns as needed</td></tr>
+<tr><td class="tb">Decision latency</td><td style="color:var(--green)">≤2 hours</td><td style="color:var(--amber)">2–4 hours</td><td>CRANK Lead checks who is blocking and why</td></tr>
+<tr><td class="tb">Ship rate</td><td style="color:var(--green)">100%</td><td style="color:var(--amber)">80–99%</td><td>CRANK Lead blocks next Charge until current cycle ships</td></tr>
+</tbody></table></div>`;
+}
+
+function oMC(i){
+  const m=MD[i];
+  const zc=['#2eb87a','#e8940a','#f05a3f'];
+  const zb=['rgba(46,184,122,.12)','rgba(232,148,10,.12)','rgba(240,90,63,.12)'];
+  oMo(`<div class="moh"><div class="mot">${m.n}</div><div class="mox" onclick="clov()">×</div></div>
+<div class="mob"><div class="mc">${m.f}</div><div style="font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:14px">${m.det}</div>
+<div class="ml">Thresholds</div>
+<div class="tw"><table><thead><tr><th>Zone</th><th>Value</th><th>Meaning</th></tr></thead><tbody>
+${m.th.map(([z,v,msg],zi)=>`<tr><td><span class="badge" style="background:${zb[zi]};color:${zc[zi]}">${z}</span></td><td class="tb">${v}</td><td style="color:var(--t2)">${msg}</td></tr>`).join('')}
+</tbody></table></div></div>`);
+}
+
+// ── ONBOARDING ─────────────────────────────────────────────────────────────────
+function rOB(){
+  const S=[
+    {n:1,c:'#f05a3f',bg:'rgba(240,90,63,.15)',t:'Week 1 — Mechanics only',s:'Cycle completes in 2–3 days without skipping a phase',b:'Run one full C→R→A→N→K cycle on the lowest-stakes work available. The goal is muscle memory — not output quality. Everyone plays every role. No optimizing yet.',ch:['Signal captured by IC and handed to CRANK Lead within 30 min','Something ships by end of Run — even if rough','Failure named out loud in Assess — not logged for later','Dev KICK and Stakeholder KICK held as separate sessions']},
+    {n:2,c:'#e8940a',bg:'rgba(232,148,10,.15)',t:'Week 2 — Introduce the speed contract',s:'Zero unacknowledged requirements — all routed through IC',b:'Layer the three rules onto the live cycle. Call out violations explicitly and in real time. Each violation is a teaching moment. Focus especially on Developers creating their own tickets.',ch:['Developers creating own Jira tickets — not receiving them from upstream','Every failure resolved within the hour it surfaced','Mid-cycle Stakeholder requirements captured by IC — not treated as blockers']},
+    {n:3,c:'#2eb87a',bg:'rgba(46,184,122,.15)',t:'Week 3 — Both KICK meetings running',s:'Stakeholder KICK produces at least one committed decision',b:'Run both KICK meetings as intended. Brief Stakeholders on the Stakeholder KICK format before attending: live demo only when necessary, decisions made on the spot, new requirements go through IC.',ch:['Dev KICK closed by CRANK Lead when alignment reached — not by clock','Stakeholder KICK live demo skipped if nothing new to show','Steering document active — all decisions captured before KICK closes']},
+    {n:4,c:'#4a8ee8',bg:'rgba(74,142,232,.15)',t:'Week 4 — Full velocity, measure it',s:'Team names its own bottleneck from the data',b:'Activate metrics tracking. Measure cycle time, blocker resolution, and decision latency. Use numbers to locate where the flywheel is grinding — not to grade performance.',ch:['Cycle time tracked from Charge to cycle close','IC log active — every signal has a triage outcome','CRANK Lead can identify the single biggest friction point from metrics alone','No cooldown into Week 5 — flywheel is live']}
+  ];
+  return`<div class="ey">06 — Adoption guide</div><h2>Four weeks to full velocity.</h2>
+<div class="ib">CRANK assumes the team already understands the client's goals and scope going in — discovery, scoping, and initial requirements-gathering happen before Cycle 1, as part of engagement setup, not as a CRANK ceremony. The flywheel starts turning once there's something real to Charge against.</div>
+<p class="lead">Week 1 is mechanics only. Week 4 is live metrics. There is no trial mode — all three rules apply from day one.</p>
+${S.map((s,i)=>`<div style="display:flex;gap:14px;margin-bottom:12px"><div style="display:flex;flex-direction:column;align-items:center"><div style="width:28px;height:28px;border-radius:50%;background:${s.bg};color:${s.c};display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:12px;font-weight:700;flex-shrink:0">${s.n}</div>${i<3?'<div style="width:1px;background:var(--b1);flex:1;margin:3px 0;min-height:16px"></div>':''}</div>
+<div class="card" style="flex:1"><h3>${s.t}</h3><div style="font-family:var(--fm);font-size:10px;color:var(--t3);margin-bottom:9px">Success: ${s.s}</div><div style="font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:10px">${s.b}</div>${s.ch.map(ch=>`<div class="ci">${ch}</div>`).join('')}</div></div>`).join('')}
+<div class="alert" style="margin-top:6px"><div class="at">Common adoption failure</div><div class="ab">Teams treat Week 1 as a trial run and revert to receiving tickets from upstream in Week 2. There is no trial mode. Developers own their documentation from day one.</div></div>`;
+}
+
+// ── EDGE CASES ───────────────────────────────────────────────────────────────
+function rEC(){
+  return`<div class="ey">07 — Edge cases</div><h2>When CRANK gets stressed.</h2>
+<p class="lead">Six scenarios that push the framework to its limits — and the specific response protocol for each.</p>
+<div class="etabs">${EDGES.map((e,i)=>`<div class="etab${i===0?' on':''}" onclick="sEd(${i})">${e.n}</div>`).join('')}</div>
+<div class="epan" id="ep"></div>`;
+}
+
+function sEd(i){
+  document.querySelectorAll('.etab').forEach((el,idx)=>el.classList.toggle('on',idx===i));
+  const e=EDGES[i];
+  document.getElementById('ep').innerHTML=`<span class="esev" style="background:${e.sb};color:${e.sc}">${e.sev}</span>
+<div class="ebod">${e.b}</div>
+<div class="ecols"><div class="ecol"><div class="ecolh">Signals</div>${e.sig.map(s=>`<div class="ei"><div class="dot dr"></div><span>${s}</span></div>`).join('')}</div>
+<div class="ecol"><div class="ecolh">Response</div>${e.res.map(r=>`<div class="ei"><div class="dot dg"></div><span>${r}</span></div>`).join('')}</div></div>`;
+}
+
+// ── TEMPLATES ─────────────────────────────────────────────────────────────────
+function rTP(){
+  return`<div class="ey">11 — Templates</div><h2>Ready to use.<br>Fill in the brackets.</h2>
+<p class="lead">Five operational documents. Copy verbatim. Do not add sections.</p>
+<div class="ttabs">${TPLS.map((t,i)=>`<div class="ttab${i===0?' on':''}" onclick="sTp(${i})">${t.n}</div>`).join('')}</div>
+<div class="tdoc" id="tp"></div>`;
+}
+
+function sTp(i){
+  document.querySelectorAll('.ttab').forEach((el,idx)=>el.classList.toggle('on',idx===i));
+  const t=TPLS[i];
+  document.getElementById('tp').innerHTML=`<div class="thdr"><span class="tht">${t.n}</span><div style="display:flex;align-items:center;gap:10px"><span class="thm">${t.m}</span><button class="tdl-btn" onclick="downloadTpl(${i})">Download .doc ↓</button></div></div><div class="tbody">${t.html}</div><div class="tf">Copy verbatim. Do not add fields or sections.</div>`;
+}
+
+function docHtml(t){
+  return `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head><meta charset="utf-8"><title>${t.n}</title>
+<style>
+body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:0.6in}
+h1{font-family:Calibri,Arial,sans-serif;font-size:18pt;color:#1B3A5C;margin:0 0 2pt}
+.doc-meta{font-size:9pt;color:#666666;margin:0 0 16pt}
+.fi{margin:0 0 10pt}
+.fl{font-size:8pt;text-transform:uppercase;letter-spacing:1pt;color:#666666;font-weight:bold;margin:0 0 2pt}
+.fv{font-size:10.5pt;color:#1a1a1a}
+.fh{font-size:9pt;color:#666666;font-style:italic;margin-top:2pt}
+.td{border-bottom:1px solid #cccccc;margin:10pt 0;font-size:1pt;line-height:1pt}
+table{border-collapse:collapse;width:100%;margin:8pt 0}
+th{background:#1B3A5C;color:#ffffff;font-size:9pt;text-transform:uppercase;padding:6pt 8pt;text-align:left;border:1px solid #cccccc}
+td{padding:6pt 8pt;border:1px solid #cccccc;font-size:10pt;vertical-align:top}
+.mblk{font-family:Consolas,monospace;font-size:9.5pt;background:#f2f2f2;padding:6pt 8pt;display:block}
+.tf-note{font-size:9pt;color:#666666;font-style:italic;margin-top:14pt}
+</style>
+</head>
+<body>
+<h1>${t.n}</h1>
+<p class="doc-meta">${t.m}</p>
+${t.html}
+<p class="tf-note">Copy verbatim. Do not add fields or sections.</p>
+</body></html>`;
+}
+
+function downloadTpl(i){
+  const t=TPLS[i];
+  const blob=new Blob(['\ufeff', docHtml(t)], {type:'application/msword'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='CRANK_'+t.n.replace(/[^a-z0-9]+/gi,'_')+'.doc';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ── SCALING ───────────────────────────────────────────────────────────────────
+function rSC(){
+  const T=[
+    {n:'Solo team',c:'2–5 people',r:'One flywheel, one CRANK Lead, both KICK meetings. The framework runs as designed — no modifications needed.',it:['CRANK Lead does not rotate — continuity of context is critical','All Developers attend Dev KICK','Intake Coordinator role may be shared with CRANK Lead at this scale if necessary']},
+    {n:'Two teams',c:'6–12 people',r:'Two independent flywheels. Teams have their own Dev KICKs. Stakeholder KICK can be shared or separate depending on whether Stakeholders overlap.',it:['Each team has its own CRANK Lead','Cross-team sync: 20 min, mid-week, dependency-only agenda','Shared Intake Coordinator possible at this scale if intake volume is low']},
+    {n:'3–5 teams',c:'13–30 people',r:'Introduce a Flywheel Coordinator — not a PM, but a person whose only job is keeping cross-team cycles in sync and surfacing inter-team blockers before they compound.',it:['Flywheel Coordinator attends all Stakeholder KICKs as observer','Weekly coordinator report: one page, cross-team dependencies only','Stakeholder KICK once per month covers all teams — individual Dev KICKs remain separate','Additive at this tier only — sits outside the core five-role RACI used by individual teams']},
+    {n:'Org-wide',c:'30+ people',r:'CRANK becomes a portfolio operating system. Individual team flywheels remain unchanged. The org layer adds one monthly cross-flywheel Stakeholder KICK.',it:['Monthly org Stakeholder KICK replaces quarterly reviews','Each CRANK Lead presents — no separate deck prepared','Org-level priorities set in org KICK; team-level in team KICK — no authority overlap']}
+  ];
+  return`<div class="ey">09 — Scaling guide</div><h2>CRANK across multiple teams.</h2>
+<p class="lead">The flywheel architecture stays constant. What changes at each tier is the coordination layer — never the ceremony structure.</p>
+<div class="tiers">${T.map(t=>`<div class="tr"><div class="tlbl"><div class="tn">${t.n}</div><div class="tc">${t.c}</div></div><div class="tcard"><div class="trule">${t.r}</div>${t.it.map(x=>`<div class="ai">${x}</div>`).join('')}</div></div>`).join('')}</div>
+<div class="ib"><div style="font-family:var(--fd);font-size:13px;font-weight:600;color:#85aee8;margin-bottom:5px">Cross-team sync — the only new ceremony added when scaling</div>Not a KICK. Not a standup. Routes dependencies only. Duration: 20 minutes max. Attendees: one per team. Agenda: what does Team A need from Team B this week? Output: named owners. Nothing else.</div>
+<div class="sr"></div><div class="ml">What breaks at scale</div>
+<div class="g3">
+<div class="csm"><h3 style="font-size:13px;margin-bottom:5px">CRANK Lead overloaded</h3><div style="font-size:12px;color:var(--t2);line-height:1.6">The CRANK Lead does not rotate, so at scale they can become a bottleneck. Breakout session delegation and a strong Intake Coordinator are the primary relief valves.</div></div>
+<div class="csm"><h3 style="font-size:13px;margin-bottom:5px">Merged KICK sessions</h3><div style="font-size:12px;color:var(--t2);line-height:1.6">Combining multiple teams into one KICK breaks decision authority clarity and Stakeholder focus. Dev KICKs should never be merged across teams.</div></div>
+<div class="csm"><h3 style="font-size:13px;margin-bottom:5px">Intake overflow</h3><div style="font-size:12px;color:var(--t2);line-height:1.6">At scale, Intake Coordinators can be overwhelmed. Each team should have a dedicated IC. Cross-team requirements route through the Flywheel Coordinator, not individual ICs.</div></div>
+</div>`;
+}
+
+// ── ANTI-PATTERNS ─────────────────────────────────────────────────────────────
+function rAP(){
+  return`<div class="ey">10 — Anti-patterns library</div><h2>What orgs do wrong.</h2>
+<p class="lead">Seven recurring failures sorted by severity. Click any card to expand the full anatomy — what it looks like, why it happens, and the specific fix.</p>
+<div class="apl">${APS.map((a,i)=>`<div class="apc" onclick="togAP(${i})"><div class="aph"><span class="aps" style="background:${a.sb};color:${a.sc}">${a.sev}</span><span class="apn">${a.n}</span></div><div class="apb" id="apb-${i}"><div class="apcol"><div class="apch">What it looks like</div>${a.what}</div><div class="apcol"><div class="apch">Why it happens</div>${a.why}</div><div class="apcol"><div class="apch">Fix</div>${a.fix}</div></div><div class="apex" id="apex-${i}">Click to expand ↓</div></div>`).join('')}</div>`;
+}
+function togAP(i){
+  const b=document.getElementById('apb-'+i),x=document.getElementById('apex-'+i);
+  const o=b.classList.toggle('open');
+  x.textContent=o?'Click to collapse ↑':'Click to expand ↓';
+}
+
+// ── VS AGILE ──────────────────────────────────────────────────────────────────
+function rVA(){
+  return`<div class="ey">08 — CRANK vs Agile</div><h2>An honest comparison.</h2>
+<p class="lead">In a truly high-performing Agile organization, the delta is smaller than CRANK's framing suggests. The real question is what kind of work you're doing and how much ceremony debt has accumulated.</p>
+<div class="vs">
+<div class="vsc" style="background:rgba(90,88,85,.07);border-color:rgba(90,88,85,.2)"><div class="vsl" style="color:var(--t2)">Where Agile holds its ground</div><div class="vst" style="color:#c8c6c1">Agile</div>${[['#2eb87a','Sprint structure is protective at scale and in technical complexity'],['#2eb87a','Backlog and story points are a shared language for deep, novel work'],['#2eb87a','Handles distributed and async teams better by design'],['#f05a3f','Sprint boundary creates structural permission to defer failures'],['#f05a3f','Retrospective schedules learning instead of embedding it'],['#f05a3f','Ceremony load accumulates over time even in great teams'],['#f05a3f','Mid-cycle change is treated as a disruption, not an expected input']].map(([c,t])=>`<div class="vsi" style="color:var(--t2)"><span style="color:${c};flex-shrink:0">${c==='#2eb87a'?'+':'−'}</span><span>${t}</span></div>`).join('')}</div>
+<div class="vsc" style="background:rgba(240,90,63,.06);border-color:rgba(240,90,63,.2)"><div class="vsl" style="color:var(--red)">Where CRANK makes its case</div><div class="vst" style="color:#f08070">CRANK</div>${[['#2eb87a','No structural deferral mechanism — failures resolved now'],['#2eb87a','Assess embeds learning into the cycle rather than scheduling it'],['#2eb87a','Two focused KICK meetings — internal and external, separate concerns'],['#2eb87a','Never Say No — mid-cycle change expected and navigated through IC'],['#2eb87a','Developer-owned documentation — closer to the work, more accurate'],['#f05a3f','CRANK Lead does not rotate — requires a strong, consistent leader'],['#f05a3f','Requires org-level authority restructuring — not just team adoption']].map(([c,t])=>`<div class="vsi"><span style="color:${c};flex-shrink:0">${c==='#2eb87a'?'+':'−'}</span><span style="color:rgba(240,128,112,.8)">${t}</span></div>`).join('')}</div>
+</div>
+<div class="verdict"><h3>The honest verdict</h3><p>Most high-performing Agile teams aren't slow because of Agile. They're slow because of org structure, approval chains, and stakeholder availability. CRANK names these correctly and provides explicit mechanisms to address them. The Intake Coordinator role and the "Never Say No" principle directly address the mid-cycle change problem that Agile treats as a disruption.</p><p>The strongest case for CRANK isn't "Agile is wrong." It's "Agile has accumulation risk." Over time, even great teams accrete ceremony. CRANK's minimal ceremony model — two focused KICKs, one steering document, clear ownership — resets that accumulation.</p><p style="color:var(--tx);font-weight:600">Scrum delivers a plan, revisited every two weeks. CRANK delivers solutions, every two to three days.</p></div>
+<div class="tw"><table style="table-layout:fixed"><thead><tr><th style="width:22%">Dimension</th><th style="width:39%">Scrum / Agile</th><th style="width:39%">CRANK</th></tr></thead><tbody>
+<tr><td class="tb">Cycle length</td><td>2 weeks standard</td><td class="hi">2–3 days per cycle, CRANK Lead calls dev item boundaries</td></tr>
+<tr><td class="tb">Requirements</td><td>Backlog grooming before sprint; mid-cycle change is disruption</td><td class="hi">Gathered in motion via IC; mid-cycle change expected and navigated</td></tr>
+<tr><td class="tb">Documentation</td><td>Often owned by BA or PM</td><td class="hi">Developer-owned — created from working understanding as you build</td></tr>
+<tr><td class="tb">Failure response</td><td>Logged, retrospective scheduled</td><td class="hi">Named and fixed within the hour</td></tr>
+<tr><td class="tb">Stakeholder meetings</td><td>Sprint review — one meeting, mixed audience</td><td class="hi">Two KICKs: Dev KICK (internal) + Stakeholder KICK (external)</td></tr>
+<tr><td class="tb">Slowdown rule</td><td>Velocity may drop; buffer sprints acceptable</td><td class="hi">Never. Triggers immediate CRANK Lead escalation.</td></tr>
+<tr><td class="tb">Decision authority</td><td>Often escalated async</td><td class="hi">CRANK Lead owns — decided promptly, documented in steering doc</td></tr>
+<tr><td class="tb">Ceremony load</td><td>4–6 events per week</td><td class="hi">Two focused KICKs. Everything else is building.</td></tr>
+</tbody></table></div>`;
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function oMo(html){document.getElementById('mo').innerHTML=html;document.getElementById('ov').classList.add('open');}
+function clov(e){if(!e||e.target===document.getElementById('ov'))document.getElementById('ov').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('ov').classList.remove('open');});
+
+go('overview');
+</script>
+</body>
+</html>
