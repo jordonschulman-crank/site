@@ -421,10 +421,10 @@ const PLIST=[
   {id:'metrics',l:'Metrics',m:'4 signals'},
   {id:'onboarding',l:'Onboarding',m:'4 weeks'},
   {id:'edgecases',l:'Edge cases',m:'6 scenarios',sec:'Reference'},
-  {id:'vsagile',l:'vs Agile',m:'Honest comparison'},
+  {id:'vsagile',l:'Comparisons',m:'vs Agile & Waterfall'},
   {id:'scaling',l:'Scaling guide',m:'4 tiers'},
   {id:'antipatterns',l:'Anti-patterns',m:'7 failures'},
-  {id:'templates',l:'Templates',m:'5 docs'}
+  {id:'templates',l:'Templates',m:'6 docs'}
 ];
 
 const PH=[
@@ -564,7 +564,9 @@ const TPLS=[
   {n:'Cycle close summary',m:'CRANK Lead · Sent within 1 hour of cycle close',
    html:`<div class="fi"><div class="fl">Cycle</div><div class="fv">[DATE] — Cycle #[N]</div></div><div class="fi"><div class="fl">CRANK Lead</div><div class="fv">[Name]</div></div><div class="td"></div><div class="fi"><div class="fl">What shipped</div><div class="fv">[List every artifact that reached a real environment. Staging does not count. If nothing shipped, state that explicitly.]</div></div><div class="fi"><div class="fl">Developer docs & tickets created</div><div class="fv">[List Jira tickets created by Developers this cycle. This is the documentation audit.]</div></div><div class="fi"><div class="fl">Assess lesson</div><div class="fv">[Format: "We assumed X. It was actually Y. Next cycle we will Z."]</div></div><div class="fi"><div class="fl">Navigate direction</div><div class="fv">[Pivot / Double down — one-sentence rationale.]</div></div><div class="fi"><div class="fl">New requirements received this cycle</div><div class="fv">[List signals captured by IC with triage outcome for each.]</div></div><div class="td"></div><table style="table-layout:fixed"><thead><tr><th style="width:40%">Metric</th><th>This cycle</th><th>Target</th></tr></thead><tbody><tr><td>Cycle time</td><td>[N days]</td><td>2–3 days</td></tr><tr><td>Ship rate</td><td>[Y / N]</td><td>100%</td></tr><tr><td>Blockers resolved</td><td>[N/M]</td><td>≥90%</td></tr><tr><td>Decision latency</td><td>[N hrs]</td><td>≤2 hrs</td></tr></tbody></table>`},
   {n:'Steering document',m:'Entry format · Owned by CRANK Lead',
-   html:`<div class="fi"><div class="fl">Decision ID</div><div class="fv">STR-[DATE]-[N]</div><div class="fh">Auto-increment. One entry per committed decision, from either KICK. Appended, never overwritten.</div></div><div class="fi"><div class="fl">Date / Source session</div><div class="fv">[Date] · [Dev KICK / Stakeholder KICK]</div></div><div class="td"></div><div class="fi"><div class="fl">Decision</div><div class="fv">[One sentence — the exact direction, stated the way it was spoken aloud in the room.]</div></div><div class="fi"><div class="fl">Rationale</div><div class="fv">[Why. Tied to the Assess lesson if this followed a Navigate call, or to the originating signal if it followed a new requirement.]</div></div><div class="td"></div><div class="fi"><div class="fl">Linked signal</div><div class="fv">[SIG-ID] — if this decision traces back to a Signal Intake Log entry. Blank if it originated inside KICK itself.</div></div><div class="fi"><div class="fl">Developer responsible for feasibility review</div><div class="fv">[Name] — assign at the next Dev KICK if not yet named.</div><div class="fh">Review happens after the session, coordinated by the Intake Coordinator — not live in the Stakeholder KICK room.</div></div><div class="td"></div><div class="fi"><div class="fl">Status</div><div class="fv">Committed / Superseded by [Decision ID]</div></div>`}
+   html:`<div class="fi"><div class="fl">Decision ID</div><div class="fv">STR-[DATE]-[N]</div><div class="fh">Auto-increment. One entry per committed decision, from either KICK. Appended, never overwritten.</div></div><div class="fi"><div class="fl">Date / Source session</div><div class="fv">[Date] · [Dev KICK / Stakeholder KICK]</div></div><div class="td"></div><div class="fi"><div class="fl">Decision</div><div class="fv">[One sentence — the exact direction, stated the way it was spoken aloud in the room.]</div></div><div class="fi"><div class="fl">Rationale</div><div class="fv">[Why. Tied to the Assess lesson if this followed a Navigate call, or to the originating signal if it followed a new requirement.]</div></div><div class="td"></div><div class="fi"><div class="fl">Linked signal</div><div class="fv">[SIG-ID] — if this decision traces back to a Signal Intake Log entry. Blank if it originated inside KICK itself.</div></div><div class="fi"><div class="fl">Developer responsible for feasibility review</div><div class="fv">[Name] — assign at the next Dev KICK if not yet named.</div><div class="fh">Review happens after the session, coordinated by the Intake Coordinator — not live in the Stakeholder KICK room.</div></div><div class="td"></div><div class="fi"><div class="fl">Status</div><div class="fv">Committed / Superseded by [Decision ID]</div></div>`},
+  {n:'Fit assessment',m:'Scored readiness check · Run before adoption',
+   html:`<div class="fi"><div class="fl">Team / Engagement</div><div class="fv">[Name]</div></div><div class="fi"><div class="fl">Scored by</div><div class="fv">[Name · Date]</div></div><div class="fh">Score each statement 0–10 (0 = not true at all, 10 = fully true). Sum all eight for a score out of 80.</div><div class="td"></div><table style="table-layout:fixed"><thead><tr><th style="width:66%">Statement</th><th>Score (0–10)</th></tr></thead><tbody><tr><td>A single decision-maker can realistically hold unilateral authority on this team without needing group consensus.</td><td>[ ]</td></tr><tr><td>A named backup for that decision-maker exists or can be named before Cycle 1.</td><td>[ ]</td></tr><tr><td>Stakeholders can be embedded weekly — reachable for real-time decisions, not consulted quarterly.</td><td>[ ]</td></tr><tr><td>Stakeholders attending KICK will hold genuine decision authority, not just observer status.</td><td>[ ]</td></tr><tr><td>The technical foundation (CI/CD, code review, deploy pipeline) already supports shipping to a real environment multiple times a week.</td><td>[ ]</td></tr><tr><td>Developers are willing and able to own their own tickets and documentation, written as they build.</td><td>[ ]</td></tr><tr><td>The team is 3–25 people — small enough for one CRANK Lead to realistically own direction and blockers.</td><td>[ ]</td></tr><tr><td>The work itself has genuine requirement volatility — this is not a fixed-scope, fixed-bid, or regulated-filing engagement.</td><td>[ ]</td></tr></tbody></table><div class="td"></div><div class="fi"><div class="fl">Total score</div><div class="fv">[Sum] / 80</div></div><table style="table-layout:fixed"><thead><tr><th style="width:30%">Score</th><th>Reading</th></tr></thead><tbody><tr><td>64–80</td><td>Strong fit. Proceed to Week 1 of onboarding.</td></tr><tr><td>48–63</td><td>Proceed, but name the specific low-scoring statements as risks to watch in the first four weeks.</td></tr><tr><td>Below 48</td><td>Do not start a real cycle yet. Fix the specific gaps the assessment surfaced first — most commonly Stakeholder availability or CRANK Lead authority.</td></tr></tbody></table>`}
 ];
 
 const APS=[
@@ -799,7 +801,15 @@ function rRL(){
 <div class="tw"><table style="table-layout:fixed"><thead><tr><th style="width:28%">Activity</th>${RACI_HDRS.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>
 ${RACI_ROWS.map(row=>`<tr><td class="tb">${row[0]}</td>${row.slice(1).map((v,ci)=>{const cs=cm[v];return v==='—'?`<td style="color:var(--t4);text-align:center">—</td>`:`<td style="text-align:center"><span class="rb" style="background:${cs.split(':')[0]};color:${cs.split(':')[1]}">${v}</span></td>`;}).join('')}</tr>`).join('')}
 </tbody></table></div>
-<p style="font-family:var(--fm);font-size:10px;color:var(--t3);margin-top:7px">R = Responsible · A = Accountable · C = Consulted · I = Informed</p>`;
+<p style="font-family:var(--fm);font-size:10px;color:var(--t3);margin-top:7px">R = Responsible · A = Accountable · C = Consulted · I = Informed</p>
+<div class="sr"></div><div class="ml">The CRANK Lead — three kinds of calls</div>
+<p class="lead" style="margin-bottom:16px">The CRANK Lead's authority is narrow but unilateral. It splits into three recurring decision types — knowing which one is in front of you is most of the job.</p>
+<div class="rols">
+<div class="roc" style="cursor:default"><div class="rt">Yes/No calls</div><div class="rs">Most common</div><div class="ri">A Developer or Stakeholder asks whether something can happen mid-cycle. Decided in the room, not after a meeting.</div></div>
+<div class="roc" style="cursor:default"><div class="rt">Direction calls</div><div class="rs">Navigate</div><div class="ri">Pivot or double down, made once per cycle from the Assess lesson — stated as a single sentence every Developer can repeat back.</div></div>
+<div class="roc" style="cursor:default"><div class="rt">Delegation calls</div><div class="rs">Blockers & breakouts</div><div class="ri">Deciding when a blocker or breakout session gets handed off rather than owned personally — the primary way a CRANK Lead's time stays free.</div></div>
+</div>
+<div class="alert" style="margin-top:6px"><div class="at">Most common CRANK Lead mistake</div><div class="ab">Seeking consensus instead of deciding. If every call gets debated to agreement, the role isn't functioning as designed — the CRANK Lead's authority is unilateral by intent, not an oversight to soften.</div></div>`;
 }
 
 function oRL(i){
@@ -835,7 +845,17 @@ function rMT(){
 <tr><td class="tb">Blocker resolution</td><td style="color:var(--green)">≥90%</td><td style="color:var(--amber)">75–89%</td><td>CRANK Lead reviews delegation — reassigns as needed</td></tr>
 <tr><td class="tb">Decision latency</td><td style="color:var(--green)">≤2 hours</td><td style="color:var(--amber)">2–4 hours</td><td>CRANK Lead checks who is blocking and why</td></tr>
 <tr><td class="tb">Ship rate</td><td style="color:var(--green)">100%</td><td style="color:var(--amber)">80–99%</td><td>CRANK Lead blocks next Charge until current cycle ships</td></tr>
-</tbody></table></div>`;
+</tbody></table></div>
+<div class="sr"></div><div class="ml">Weekly team health check</div>
+<p class="lead" style="margin-bottom:16px">A short self-report, asked during Navigate or KICK — not a formal survey tool. Five questions the CRANK Lead poses out loud and listens to honestly.</p>
+<div class="rols">
+<div class="roc" style="cursor:default"><div class="ri">Did we ship something real this cycle?</div></div>
+<div class="roc" style="cursor:default"><div class="ri">Did blockers get resolved same-day?</div></div>
+<div class="roc" style="cursor:default"><div class="ri">Does the steering document reflect what actually happened?</div></div>
+<div class="roc" style="cursor:default"><div class="ri">Does the team feel like it's moving, or grinding?</div></div>
+<div class="roc" style="cursor:default"><div class="ri">Are Developers shipping their own documentation, or is it slipping?</div></div>
+</div>
+<div class="alert" style="margin-top:6px"><div class="at">When to treat this as a real signal</div><div class="ab">If the honest answer to more than one of these is no for two cycles running, treat it as a real signal, not noise — name it in Assess like any other failure.</div></div>`;
 }
 
 function oMC(i){
@@ -863,7 +883,17 @@ function rOB(){
 <p class="lead">Week 1 is mechanics only. Week 4 is live metrics. There is no trial mode — all three rules apply from day one.</p>
 ${S.map((s,i)=>`<div style="display:flex;gap:14px;margin-bottom:12px"><div style="display:flex;flex-direction:column;align-items:center"><div style="width:28px;height:28px;border-radius:50%;background:${s.bg};color:${s.c};display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:12px;font-weight:700;flex-shrink:0">${s.n}</div>${i<3?'<div style="width:1px;background:var(--b1);flex:1;margin:3px 0;min-height:16px"></div>':''}</div>
 <div class="card" style="flex:1"><h3>${s.t}</h3><div style="font-family:var(--fm);font-size:10px;color:var(--t3);margin-bottom:9px">Success: ${s.s}</div><div style="font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:10px">${s.b}</div>${s.ch.map(ch=>`<div class="ci">${ch}</div>`).join('')}</div></div>`).join('')}
-<div class="alert" style="margin-top:6px"><div class="at">Common adoption failure</div><div class="ab">Teams treat Week 1 as a trial run and revert to receiving tickets from upstream in Week 2. There is no trial mode. Developers own their documentation from day one.</div></div>`;
+<div class="alert" style="margin-top:6px"><div class="at">Common adoption failure</div><div class="ab">Teams treat Week 1 as a trial run and revert to receiving tickets from upstream in Week 2. There is no trial mode. Developers own their documentation from day one.</div></div>
+<div class="sr"></div><div class="ml">Coming from Scrum — what actually changes</div>
+<p class="lead" style="margin-bottom:16px">The mechanics translate more directly than the ceremony names suggest. Most of the "migration" is habit reversal, not new tooling.</p>
+<div class="tw"><table style="table-layout:fixed"><thead><tr><th style="width:26%">Scrum habit</th><th style="width:37%">What stops</th><th>What replaces it</th></tr></thead><tbody>
+<tr><td class="tb">Backlog grooming before the sprint</td><td>Waiting for a groomed, estimated backlog before work starts</td><td class="hi">Charge — signals captured and actioned within 30 minutes, no pre-grooming</td></tr>
+<tr><td class="tb">BA or PM writes the ticket</td><td>Developers receiving fully-specified tickets from someone else</td><td class="hi">Developers write their own tickets from working understanding as they build</td></tr>
+<tr><td class="tb">Sprint review, one mixed audience</td><td>A single meeting trying to serve both internal team and external Stakeholders</td><td class="hi">Two focused KICKs — Dev KICK internal, Stakeholder KICK external</td></tr>
+<tr><td class="tb">Retro scheduled at sprint end</td><td>Logging a failure and revisiting it a week or two later</td><td class="hi">Assess — named and resolved in the same session, under 20 minutes</td></tr>
+<tr><td class="tb">Sprint boundary as change gate</td><td>Treating a mid-sprint request as a disruption to hold off until planning</td><td class="hi">Intake Coordinator captures and routes mid-cycle change immediately — never blocked</td></tr>
+</tbody></table></div>
+<div class="ib" style="margin-top:14px">The role mapping is not one-to-one. A Scrum Master's facilitation duties split across the CRANK Lead (direction, blockers) and the Intake Coordinator (change routing) — do not simply rename the Scrum Master title to CRANK Lead and assume the role transfers unchanged.</div>`;
 }
 
 // ── EDGE CASES ───────────────────────────────────────────────────────────────
@@ -886,7 +916,7 @@ function sEd(i){
 // ── TEMPLATES ─────────────────────────────────────────────────────────────────
 function rTP(){
   return`<div class="ey">11 — Templates</div><h2>Ready to use.<br>Fill in the brackets.</h2>
-<p class="lead">Five operational documents. Copy verbatim. Do not add sections.</p>
+<p class="lead">Six operational documents. Copy verbatim. Do not add sections.</p>
 <div class="ttabs">${TPLS.map((t,i)=>`<div class="ttab${i===0?' on':''}" onclick="sTp(${i})">${t.n}</div>`).join('')}</div>
 <div class="tdoc" id="tp"></div>`;
 }
@@ -991,7 +1021,27 @@ ${(()=>{const cmpRows=[
 return `<div class="tw cmp-desktop"><table style="table-layout:fixed"><thead><tr><th style="width:22%">Dimension</th><th style="width:39%">Scrum / Agile</th><th style="width:39%">CRANK</th></tr></thead><tbody>
 ${cmpRows.map(([dim,scrum,crank])=>`<tr><td class="tb">${dim}</td><td>${scrum}</td><td class="hi">${crank}</td></tr>`).join('')}
 </tbody></table></div>
-<div class="cmp-mobile">${cmpRows.map(([dim,scrum,crank])=>`<div class="cmp-card"><div class="cmp-dim">${dim}</div><div class="cmp-row"><span class="cmp-tag crank">CRANK</span><span class="cmp-val">${crank}</span></div><div class="cmp-row"><span class="cmp-tag scrum">Scrum</span><span class="cmp-val">${scrum}</span></div></div>`).join('')}</div>`;})()}`;
+<div class="cmp-mobile">${cmpRows.map(([dim,scrum,crank])=>`<div class="cmp-card"><div class="cmp-dim">${dim}</div><div class="cmp-row"><span class="cmp-tag crank">CRANK</span><span class="cmp-val">${crank}</span></div><div class="cmp-row"><span class="cmp-tag scrum">Scrum</span><span class="cmp-val">${scrum}</span></div></div>`).join('')}</div>`;})()}
+<div class="sr"></div>
+<div class="ey">09 — CRANK vs Waterfall</div>
+<h2 style="font-size:22px;margin-bottom:14px">Where Waterfall still wins — and where it doesn't.</h2>
+<div class="vs">
+<div class="vsc" style="background:rgba(90,88,85,.07);border-color:rgba(90,88,85,.2)"><div class="vsl" style="color:var(--t2)">Where Waterfall holds its ground</div><div class="vst" style="color:#c8c6c1">Waterfall</div>${[['#2eb87a',"Genuinely stable, well-understood requirements suit a locked sequential plan"],['#2eb87a','Predictable schedule and scope build stakeholder confidence in fixed-bid or regulated contexts'],['#2eb87a',"Works when a late requirements change is genuinely catastrophic — physical infrastructure, not software"],['#f05a3f',"Requirements are frozen upfront; wrong assumptions surface at the end, when they're most expensive to fix"],['#f05a3f','Feedback arrives after the build is complete, not during it'],['#f05a3f','Risk concentrates at integration and testing — the worst possible place to discover a problem']].map(([c,t])=>`<div class="vsi" style="color:var(--t2)"><span style="color:${c};flex-shrink:0">${c==='#2eb87a'?'+':'−'}</span><span>${t}</span></div>`).join('')}</div>
+<div class="vsc" style="background:rgba(240,90,63,.06);border-color:rgba(240,90,63,.2)"><div class="vsl" style="color:var(--red)">Where CRANK makes its case</div><div class="vst" style="color:#f08070">CRANK</div>${[['#2eb87a','Requirements are discovered and adapted continuously, not guessed once upfront'],['#2eb87a','Feedback arrives every 2-3 days, not months into a build'],['#2eb87a','Risk is distributed across many small cycles instead of concentrated at the end'],['#f05a3f','Assumes requirements will change — genuinely fixed-scope work gets no benefit from it'],['#f05a3f','Without a stable foundation, continuous adaptation can look like constant scope drift']].map(([c,t])=>`<div class="vsi"><span style="color:${c};flex-shrink:0">${c==='#2eb87a'?'+':'−'}</span><span style="color:rgba(240,128,112,.8)">${t}</span></div>`).join('')}</div>
+</div>
+${(()=>{const wfRows=[
+  ['Requirements','Locked upfront; changes treated as exceptions','Discovered continuously; change is expected and navigated'],
+  ['Delivery cadence','Single release at the end, often months out','Continuous, every 2–3 days'],
+  ['Risk','Concentrated at integration and testing, late in the project','Distributed across many small cycles'],
+  ['Feedback loop','Arrives after the build is complete','Arrives every cycle'],
+  ['Predictability',"High on paper, but only if requirements genuinely don't move",'Lower on paper, grounded in current information instead'],
+  ['Best fit','Physically constrained or contractually fixed-scope work','Product and software work where requirements will evolve'],
+];
+return `<div class="tw cmp-desktop"><table style="table-layout:fixed"><thead><tr><th style="width:22%">Dimension</th><th style="width:39%">Waterfall</th><th style="width:39%">CRANK</th></tr></thead><tbody>
+${wfRows.map(([dim,wf,crank])=>`<tr><td class="tb">${dim}</td><td>${wf}</td><td class="hi">${crank}</td></tr>`).join('')}
+</tbody></table></div>
+<div class="cmp-mobile">${wfRows.map(([dim,wf,crank])=>`<div class="cmp-card"><div class="cmp-dim">${dim}</div><div class="cmp-row"><span class="cmp-tag crank">CRANK</span><span class="cmp-val">${crank}</span></div><div class="cmp-row"><span class="cmp-tag scrum">Waterfall</span><span class="cmp-val">${wf}</span></div></div>`).join('')}</div>`;})()}
+<div class="verdict"><p>Waterfall isn't wrong — it's right for the work where requirements truly won't move: a bridge, a regulated filing, a fixed-bid contract with locked specs. CRANK is built for the much larger category of work where they will.</p></div>`;
 }
 
 // ── MODAL ─────────────────────────────────────────────────────────────────────
