@@ -477,23 +477,23 @@ const CR=[
 ];
 
 const ROLES=[
-  {i:'CL',c:'#f05a3f',bg:'rgba(240,90,63,.15)',t:'CRANK Lead',s:'Does not rotate — can delegate for breakout sessions',
+  {i:'CL',c:'#f05a3f',bg:'rgba(240,90,63,.15)',t:'CRANK Lead',s:'Does not rotate — can delegate for breakout sessions',doc:'CRANK_Lead_Onboarding.pdf',
    o:['Owns all blockers unless explicitly delegated','Calls Navigate direction — final say when team is split','Facilitates both Dev KICK and Stakeholder KICK — closes when alignment is reached','Maintains the single steering decisions document','Triages incoming requirements with the Intake Coordinator'],
    d:'The CRANK Lead\'s authority is narrow but unilateral. They own direction and blockers. They do not own the product; that is the Stakeholder. They do not own the build; that is the Developer. Their job is to keep the flywheel moving and ensure alignment across both KICK meetings. They do not rotate — continuity of context is essential to the role. Breakout sessions — smaller, informal sessions held mid-cycle to move a specific initiative or development item forward — can be delegated to free up the CRANK Lead\'s time.',
    raci:{charge:'A',run:'A',assess:'A',navigate:'R',dev_kick:'A',sh_kick:'A',blockers:'A',intake:'A',steering:'R'}},
-  {i:'DEV',c:'#8e6ed4',bg:'rgba(142,110,212,.15)',t:'Developer',s:'Internal team members doing the work',
+  {i:'DEV',c:'#8e6ed4',bg:'rgba(142,110,212,.15)',t:'Developer',s:'Internal team members doing the work',doc:'CRANK_Developer_Onboarding.pdf',
    o:['Owns Run phase output — code, design, or artifact','Creates own Jira tickets and documentation as they build','Names failures immediately in Assess — no waiting','Demos own work at Stakeholder KICK when demo is necessary — no proxy presenters'],
    d:'Developers own the full lifecycle of their work: building it, ticketing it, documenting it, and demoing it when required. The documentation rule is the most significant shift from traditional models: you create the Jira ticket that describes what you built — not the other way around. Developers attend the Dev KICK. They attend the Stakeholder KICK when a live demo is warranted.',
    raci:{charge:'C',run:'R',assess:'R',navigate:'C',dev_kick:'R',sh_kick:'C',blockers:'C',intake:'—',steering:'I'}},
-  {i:'SH',c:'#2eb87a',bg:'rgba(46,184,122,.15)',t:'Stakeholder',s:'External team members — attend Stakeholder KICK',
+  {i:'SH',c:'#2eb87a',bg:'rgba(46,184,122,.15)',t:'Stakeholder',s:'External team members — attend Stakeholder KICK',doc:'CRANK_Stakeholder_Onboarding.pdf',
    o:['Will introduce new requirements mid-cycle — this is expected and navigated, not blocked','Live decisions during Stakeholder KICK steer block','New requirements routed through Intake Coordinator to CRANK Lead','Sends proxy with decision authority if absent'],
    d:'Stakeholders are external to the build team. Their mid-cycle requirements are not disruptions — they are expected inputs that the Intake Coordinator and CRANK Lead navigate. The Stakeholder\'s job in KICK is to steer, not to receive status updates. They attend the Stakeholder KICK only.',
    raci:{charge:'I',run:'I',assess:'—',navigate:'C',dev_kick:'—',sh_kick:'R',blockers:'C',intake:'I',steering:'I'}},
-  {i:'IC',c:'#e8940a',bg:'rgba(232,148,10,.15)',t:'Intake Coordinator',s:'Owns intake for change',
+  {i:'IC',c:'#e8940a',bg:'rgba(232,148,10,.15)',t:'Intake Coordinator',s:'Owns intake for change',doc:'CRANK_Intake_Coordinator_Onboarding.pdf',
    o:['Captures all new requirements and mid-cycle changes from any source — no filtering','Works with CRANK Lead to triage, document, and delegate items','Routes Stakeholder-introduced requirements — prevents them becoming unmanaged blockers','Maintains signal intake log with full fidelity'],
    d:'The Intake Coordinator is the funnel for all incoming change. Nothing enters the system without going through them. They do not assess or prioritize — that is the CRANK Lead\'s job. They capture and route with full fidelity. Their most important rule: do not interpret. Pass the raw signal.',
    raci:{charge:'R',run:'—',assess:'—',navigate:'—',dev_kick:'C',sh_kick:'C',blockers:'—',intake:'R',steering:'C'}},
-  {i:'OB',c:'#72706b',bg:'rgba(114,112,107,.2)',t:'Observer',s:'Guest — no voting rights',
+  {i:'OB',c:'#72706b',bg:'rgba(114,112,107,.2)',t:'Observer',s:'Guest — no voting rights',doc:'CRANK_Observer_Onboarding.pdf',
    o:['Attends Stakeholder KICK only — silent in velocity check','Submits feedback to Stakeholder after the session','Cannot introduce scope or direction changes in the room'],
    d:'Observers are a concession to organizational reality — sometimes people need visibility without authority. They are strictly silent in the velocity/steer blocks and cannot introduce new requirements. Feedback goes to the Stakeholder after the session.',
    raci:{charge:'—',run:'—',assess:'—',navigate:'—',dev_kick:'—',sh_kick:'I',blockers:'—',intake:'—',steering:'—'}}
@@ -642,7 +642,7 @@ function rOV(){
   <div class="cdef" style="background:rgba(74,142,232,.08);border-color:rgba(74,142,232,.25)"><div class="cdef-letter" style="color:var(--blue)">N</div><div class="cdef-word" style="color:var(--blue)">Never Say No</div><div class="cdef-def" style="color:rgba(120,170,240,.8)">No requirement is dismissed. Considered doesn't always mean adopted — every request gets a real answer, not silence.</div></div>
   <div class="cdef" style="background:rgba(142,110,212,.08);border-color:rgba(142,110,212,.25)"><div class="cdef-letter" style="color:var(--purple)">K</div><div class="cdef-word" style="color:var(--purple)">Kinetic</div><div class="cdef-def" style="color:rgba(170,140,230,.8)">All parties stay aligned while the work keeps moving. Alignment is continuous — not a scheduled event.</div></div>
 </div>
-<p style="font-family:var(--fm);font-size:16px;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:28px"><span style="color:var(--red)">▶</span> A shark that stops swimming sinks. So does a team.</p>
+<p style="font-family:var(--fd);font-weight:700;font-size:24px;color:var(--red);text-align:center;margin:36px 0 32px;letter-spacing:-.01em">A shark that stops swimming sinks.<br>So does a team.</p>
 <div class="ov-stats">
 <div class="st ht"><div class="st-v">2–3<em>d</em></div><div class="st-l">Cycle time target</div><div class="tip dn"><div class="tip-h">Cycle time</div>Every C→R→A→N→K rotation must complete in 2–3 days. Development items may span multiple cycles — the CRANK Lead determines the boundary per item.</div></div>
 <div class="st ht"><div class="st-v">2<em>×</em></div><div class="st-l">KICK meetings</div><div class="tip dn"><div class="tip-h">Two KICK meetings</div>Dev KICK: internal, CRANK Lead + Developers + Intake Coordinator. Stakeholder KICK: external, CRANK Lead + Stakeholders + Observers. Both close when alignment is reached.</div></div>
@@ -797,6 +797,9 @@ function rRL(){
   return`<div class="ey">04 — Roles & responsibilities</div><h2>Five roles.<br>Clear ownership.</h2>
 <p class="lead">Fewer owners means clearer accountability. The CRANK Lead owns direction and blockers. The Intake Coordinator owns change intake. Developers own the build. Click any role for full detail.</p>
 <div class="rols">${ROLES.map((r,i)=>`<div class="roc" onclick="oRL(${i})"><div class="rav" style="background:${r.bg};color:${r.c}">${r.i}</div><div class="rt">${r.t}</div><div class="rs">${r.s}</div><div class="ro">Owns</div>${r.o.map(o=>`<div class="ri">${o}</div>`).join('')}<div class="reh">Click for full detail + RACI →</div></div>`).join('')}</div>
+<div class="sr"></div><div class="ml">Onboarding guides — one per role</div>
+<p class="lead" style="margin-bottom:16px">Each role has its own standalone onboarding document — same structure as the CRANK Lead guide, tailored to what that role actually owns.</p>
+<div class="rols">${ROLES.map(r=>`<div class="roc" style="cursor:default"><div class="rav" style="background:${r.bg};color:${r.c}">${r.i}</div><div class="rt">${r.t}</div><a class="tdl-btn" href="docs/${r.doc}" download style="text-decoration:none;display:inline-block;margin-top:10px">Download onboarding guide (PDF) ↓</a></div>`).join('')}</div>
 <div class="sr"></div><div class="ml">RACI matrix</div>
 <div class="tw"><table style="table-layout:fixed"><thead><tr><th style="width:28%">Activity</th>${RACI_HDRS.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>
 ${RACI_ROWS.map(row=>`<tr><td class="tb">${row[0]}</td>${row.slice(1).map((v,ci)=>{const cs=cm[v];return v==='—'?`<td style="color:var(--t4);text-align:center">—</td>`:`<td style="text-align:center"><span class="rb" style="background:${cs.split(':')[0]};color:${cs.split(':')[1]}">${v}</span></td>`;}).join('')}</tr>`).join('')}
@@ -818,6 +821,7 @@ function oRL(i){
   const raciKeys=[['Charge — signal intake','charge'],['Run — build & ship','run'],['Assess — extract lesson','assess'],['Navigate — direction call','navigate'],['Dev KICK','dev_kick'],['Stakeholder KICK','sh_kick'],['Blocker ownership','blockers'],['Intake / change routing','intake'],['Steering document maintenance','steering']];
   oMo(`<div class="moh"><div style="display:flex;align-items:center;gap:11px"><div style="width:34px;height:34px;border-radius:50%;background:${r.bg};color:${r.c};display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:11px;font-weight:700;flex-shrink:0">${r.i}</div><div><div class="mot">${r.t}</div><div style="font-size:12px;color:var(--t3)">${r.s}</div></div></div><div class="mox" onclick="clov()">×</div></div>
 <div class="mob"><div style="font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:14px">${r.d}</div>
+<a class="tdl-btn" href="docs/${r.doc}" download style="text-decoration:none;display:inline-block;margin-bottom:16px">Download ${r.t} onboarding guide (PDF) ↓</a>
 <div class="ml">RACI — this role</div>
 <div class="tw"><table><thead><tr><th>Activity</th><th style="width:80px;text-align:center">Role</th></tr></thead><tbody>
 ${raciKeys.map(([lbl,key])=>{const v=r.raci[key];const cs=cm[v];return`<tr><td class="tb">${lbl}</td><td style="text-align:center">${v==='—'?`<span style="color:var(--t4)">—</span>`:`<span class="rb" style="background:${cs.split(':')[0]};color:${cs.split(':')[1]}">${v}</span>`}</td></tr>`;}).join('')}
