@@ -420,6 +420,7 @@ const PLIST=[
   {id:'roles',l:'Roles & RACI',m:'5 roles',sec:'Operations'},
   {id:'metrics',l:'Metrics',m:'4 signals'},
   {id:'onboarding',l:'Onboarding',m:'4 weeks'},
+  {id:'fitassessment',l:'Fit assessment',m:'Scored readiness check'},
   {id:'edgecases',l:'Edge cases',m:'6 scenarios',sec:'Reference'},
   {id:'vsagile',l:'Comparisons',m:'vs Agile & Waterfall'},
   {id:'scaling',l:'Scaling guide',m:'4 tiers'},
@@ -621,7 +622,7 @@ function go(id){
 }
 
 function rPg(id){
-  const m={overview:rOV,flywheel:rFW,contract:rCC,kick:rKK,roles:rRL,metrics:rMT,onboarding:rOB,edgecases:rEC,templates:rTP,scaling:rSC,antipatterns:rAP,vsagile:rVA};
+  const m={overview:rOV,flywheel:rFW,contract:rCC,kick:rKK,roles:rRL,metrics:rMT,onboarding:rOB,fitassessment:rFA,edgecases:rEC,templates:rTP,scaling:rSC,antipatterns:rAP,vsagile:rVA};
   return(m[id]||rOV)();
 }
 function init(id){
@@ -632,7 +633,7 @@ function init(id){
 
 // ── OVERVIEW ────────────────────────────────────────────────────────────────────
 function rOV(){
-  const D={flywheel:'Five phases, 2–3 day cycles, no cooldown between rotations.',contract:'Three rules. Build in motion. Fail fast. Never say no to change.',kick:'Two meetings: Dev KICK (internal) and Stakeholder KICK (external).',roles:'Five roles, no overlap. Each owns exactly one piece — direction, build, intake, steer, or scope.',metrics:'Four primary signals and how to act when they turn red.',onboarding:'Four weeks from zero to full velocity.',edgecases:'Six stress scenarios and the specific response protocol for each.',templates:'Ready-to-use docs for both KICKs, intake log, steering document, and cycle close.',scaling:'How the flywheel architecture changes from solo team to org-wide.',antipatterns:'Seven recurring failures sorted by severity, each with a specific fix.',vsagile:'An honest analysis of where CRANK wins and where Agile holds its ground.'};
+  const D={flywheel:'Five phases, 2–3 day cycles, no cooldown between rotations.',contract:'Three rules. Build in motion. Fail fast. Never say no to change.',kick:'Two meetings: Dev KICK (internal) and Stakeholder KICK (external).',roles:'Five roles, no overlap. Each owns exactly one piece — direction, build, intake, steer, or scope.',metrics:'Four primary signals and how to act when they turn red.',onboarding:'Four weeks from zero to full velocity.',fitassessment:'Score your team on 8 readiness statements before you commit to a real cycle.',edgecases:'Six stress scenarios and the specific response protocol for each.',templates:'Ready-to-use docs for both KICKs, intake log, steering document, and cycle close.',scaling:'How the flywheel architecture changes from solo team to org-wide.',antipatterns:'Seven recurring failures sorted by severity, each with a specific fix.',vsagile:'An honest analysis of where CRANK wins and where Agile holds its ground.'};
   return`<h1>CR<span style="color:var(--red)">A</span>NK<sup style="font-size:14px;color:var(--t3);margin-left:2px">™</sup></h1>
 <div class="ov-punch">Scrum delivers a plan, revisited every two weeks. CRANK delivers solutions, every two to three days.</div>
 <div class="crank-defs g5" style="margin-bottom:20px">
@@ -898,6 +899,63 @@ ${S.map((s,i)=>`<div style="display:flex;gap:14px;margin-bottom:12px"><div style
 <tr><td class="tb">Sprint boundary as change gate</td><td>Treating a mid-sprint request as a disruption to hold off until planning</td><td class="hi">Intake Coordinator captures and routes mid-cycle change immediately — never blocked</td></tr>
 </tbody></table></div>
 <div class="ib" style="margin-top:14px">The role mapping is not one-to-one. A Scrum Master's facilitation duties split across the CRANK Lead (direction, blockers) and the Intake Coordinator (change routing) — do not simply rename the Scrum Master title to CRANK Lead and assume the role transfers unchanged.</div>`;
+}
+
+// ── FIT ASSESSMENT ───────────────────────────────────────────────────────────
+const FIT_Q=[
+  {s:'Unilateral decision authority',f:'A single decision-maker can realistically hold unilateral authority on this team without needing group consensus.',see:'roles',seeL:'Roles & RACI — CRANK Lead'},
+  {s:'Named backup exists',f:'A named backup for that decision-maker exists or can be named before Cycle 1.',see:'roles',seeL:'Roles & RACI — CRANK Lead'},
+  {s:'Stakeholders embedded weekly',f:'Stakeholders can be embedded weekly — reachable for real-time decisions, not consulted quarterly.',see:'kick',seeL:'KICK meetings — Stakeholder KICK'},
+  {s:'Stakeholders hold real authority',f:'Stakeholders attending KICK will hold genuine decision authority, not just observer status.',see:'edgecases',seeL:'Edge cases — Stakeholder goes dark'},
+  {s:'Technical foundation supports it',f:'The technical foundation (CI/CD, code review, deploy pipeline) already supports shipping to a real environment multiple times a week.',see:'metrics',seeL:'Metrics — Ship rate'},
+  {s:'Developers will own docs',f:'Developers are willing and able to own their own tickets and documentation, written as they build.',see:'contract',seeL:'Speed contract — Build in motion'},
+  {s:'Team is the right size',f:'The team is 3–25 people — small enough for one CRANK Lead to realistically own direction and blockers.',see:'scaling',seeL:'Scaling guide'},
+  {s:'Requirements genuinely move',f:'The work itself has genuine requirement volatility — this is not a fixed-scope, fixed-bid, or regulated-filing engagement.',see:'vsagile',seeL:'Comparisons — vs Waterfall'},
+];
+function rFA(){
+  return`<div class="ey">06 — Fit assessment</div><h2>Are you actually ready for this?</h2>
+<p class="lead">Eight statements, scored 0–10 each, summed to a score out of 80. Run this before Cycle 1 — and again any time a cycle starts feeling like friction instead of speed. A printable fill-in version lives on the <span style="color:var(--red);cursor:pointer;text-decoration:underline" onclick="go('templates');setTimeout(()=>sTp(5),0)">Templates page</span>.</p>
+<div class="ml">Score each statement — 0 (not true at all) to 10 (fully true)</div>
+${FIT_Q.map((q,i)=>`<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:8px;padding:14px 16px">
+<div style="flex:1"><div style="font-size:13px;color:var(--tx);font-weight:600;margin-bottom:3px">${i+1}. ${q.s}</div><div style="font-size:12px;color:var(--t3);line-height:1.55">${q.f}</div></div>
+<input type="number" min="0" max="10" value="0" id="fa${i}" oninput="updateFitScore()" style="width:54px;text-align:center;background:var(--s3);border:1px solid var(--b2);color:var(--tx);border-radius:6px;padding:9px 4px;font-family:var(--fm);font-size:14px;flex-shrink:0">
+</div>`).join('')}
+<div id="fa-result" class="ib" style="border-left-color:var(--blue)"><div id="fa-total-label" style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:3px">Total: 0 / 80</div><div id="fa-total-msg" style="font-size:13px;line-height:1.6;color:rgba(133,174,232,.8)">Score each statement above to see your reading.</div></div>
+<div class="sr"></div><div class="ml">Reading the total</div>
+<div class="tw"><table style="table-layout:fixed"><thead><tr><th style="width:22%">Score</th><th>Reading</th></tr></thead><tbody>
+<tr><td class="tb" style="color:var(--green)">64–80</td><td>Strong fit. Proceed to Week 1 of onboarding.</td></tr>
+<tr><td class="tb" style="color:var(--amber)">48–63</td><td>Proceed, but name the specific low-scoring statements as risks to watch in the first four weeks.</td></tr>
+<tr><td class="tb" style="color:var(--red)">Below 48</td><td>Do not start a real cycle yet. Fix the specific gaps the assessment surfaced first — most commonly Stakeholder availability or CRANK Lead authority.</td></tr>
+</tbody></table></div>
+<div class="sr"></div><div class="ml">If a statement scores low</div>
+<p class="lead" style="margin-bottom:16px">Each low score points to a specific gap — and a specific place on this site that goes deeper on fixing it.</p>
+<div class="tw"><table style="table-layout:fixed"><thead><tr><th style="width:30%">Statement</th><th>Where to go next</th></tr></thead><tbody>
+${FIT_Q.map(q=>`<tr><td class="tb">${q.s}</td><td><span style="color:var(--red);cursor:pointer;text-decoration:underline" onclick="go('${q.see}')">${q.seeL} →</span></td></tr>`).join('')}
+</tbody></table></div>`;
+}
+function updateFitScore(){
+  let total=0;
+  for(let i=0;i<FIT_Q.length;i++){
+    const el=document.getElementById('fa'+i);
+    let v=parseInt(el.value,10);
+    if(isNaN(v))v=0;
+    v=Math.max(0,Math.min(10,v));
+    el.value=v;
+    total+=v;
+  }
+  const label=document.getElementById('fa-total-label');
+  const msg=document.getElementById('fa-total-msg');
+  const box=document.getElementById('fa-result');
+  label.textContent='Total: '+total+' / 80';
+  let color,bg,text;
+  if(total>=64){color='var(--green)';bg='rgba(46,184,122,.08)';text='Strong fit. Proceed to Week 1 of onboarding.';}
+  else if(total>=48){color='var(--amber)';bg='rgba(232,148,10,.08)';text='Proceed, but name the specific low-scoring statements above as risks to watch in the first four weeks.';}
+  else{color='var(--red)';bg='rgba(240,90,63,.06)';text='Do not start a real cycle yet. Fix the specific gaps this assessment surfaced first — check the table below for where to go.';}
+  box.style.borderLeftColor=color;
+  box.style.background=bg;
+  label.style.color=color;
+  msg.style.color=color;
+  msg.textContent=text;
 }
 
 // ── EDGE CASES ───────────────────────────────────────────────────────────────
