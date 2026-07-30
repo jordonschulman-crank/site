@@ -97,6 +97,10 @@ h3{font-family:var(--fd);font-size:17px;font-weight:600;margin-bottom:6px}
 .at{font-size:13px;font-weight:600;color:#f08070;margin-bottom:3px}
 .ab{font-size:13px;color:#9a5040;line-height:1.6}
 .ib{border-left:2px solid var(--blue);background:var(--bd);padding:11px 14px;border-radius:0 6px 6px 0;margin:14px 0;font-size:13px;color:rgba(133,174,232,.8);line-height:1.6}
+.fa-chips{display:flex;gap:6px;flex-wrap:wrap}
+.fa-chip{width:32px;height:32px;border-radius:8px;border:1px solid var(--b2);background:var(--s3);color:var(--t2);font-family:var(--fm);font-size:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .12s,border-color .12s,color .12s}
+.fa-chip:hover{border-color:var(--red)}
+.fa-chip.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
 .tw{border:1px solid var(--b1);border-radius:var(--rl);overflow:hidden}
 table{width:100%;border-collapse:collapse;font-size:14.5px}
 th{font-family:var(--fm);font-weight:600;font-size:12px;color:var(--t3);text-align:left;padding:8px 13px;border-bottom:1px solid var(--b1);background:var(--s2);text-transform:uppercase;letter-spacing:.06em}
@@ -912,13 +916,15 @@ const FIT_Q=[
   {s:'Team is the right size',f:'The team is 3–25 people — small enough for one CRANK Lead to realistically own direction and blockers.',see:'scaling',seeL:'Scaling guide'},
   {s:'Requirements genuinely move',f:'The work itself has genuine requirement volatility — this is not a fixed-scope, fixed-bid, or regulated-filing engagement.',see:'vsagile',seeL:'Comparisons — vs Waterfall'},
 ];
+let FIT_SCORES=new Array(FIT_Q.length).fill(0);
 function rFA(){
+  FIT_SCORES=new Array(FIT_Q.length).fill(0);
   return`<div class="ey">06 — Fit assessment</div><h2>Are you actually ready for this?</h2>
 <p class="lead">Eight statements, scored 0–10 each, summed to a score out of 80. Run this before Cycle 1 — and again any time a cycle starts feeling like friction instead of speed. A printable fill-in version lives on the <span style="color:var(--red);cursor:pointer;text-decoration:underline" onclick="go('templates');setTimeout(()=>sTp(5),0)">Templates page</span>.</p>
 <div class="ml">Score each statement — 0 (not true at all) to 10 (fully true)</div>
-${FIT_Q.map((q,i)=>`<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:8px;padding:14px 16px">
-<div style="flex:1"><div style="font-size:13px;color:var(--tx);font-weight:600;margin-bottom:3px">${i+1}. ${q.s}</div><div style="font-size:12px;color:var(--t3);line-height:1.55">${q.f}</div></div>
-<input type="number" min="0" max="10" value="0" id="fa${i}" oninput="updateFitScore()" style="width:54px;text-align:center;background:var(--s3);border:1px solid var(--b2);color:var(--tx);border-radius:6px;padding:9px 4px;font-family:var(--fm);font-size:14px;flex-shrink:0">
+${FIT_Q.map((q,i)=>`<div class="card" style="margin-bottom:8px;padding:14px 16px">
+<div style="font-size:13px;color:var(--tx);font-weight:600;margin-bottom:3px">${i+1}. ${q.s}</div><div style="font-size:12px;color:var(--t3);line-height:1.55;margin-bottom:12px">${q.f}</div>
+<div class="fa-chips" id="fa-chips-${i}">${Array.from({length:11},(_,v)=>`<div class="fa-chip${v===0?' on':''}" onclick="selectFitChip(${i},${v})">${v}</div>`).join('')}</div>
 </div>`).join('')}
 <div id="fa-result" class="ib" style="border-left-color:var(--blue)"><div id="fa-total-label" style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:3px">Total: 0 / 80</div><div id="fa-total-msg" style="font-size:13px;line-height:1.6;color:rgba(133,174,232,.8)">Score each statement above to see your reading.</div></div>
 <div class="sr"></div><div class="ml">Reading the total</div>
@@ -933,16 +939,14 @@ ${FIT_Q.map((q,i)=>`<div class="card" style="display:flex;justify-content:space-
 ${FIT_Q.map(q=>`<tr><td class="tb">${q.s}</td><td><span style="color:var(--red);cursor:pointer;text-decoration:underline" onclick="go('${q.see}')">${q.seeL} →</span></td></tr>`).join('')}
 </tbody></table></div>`;
 }
+function selectFitChip(i,v){
+  FIT_SCORES[i]=v;
+  document.querySelectorAll('#fa-chips-'+i+' .fa-chip').forEach((el,idx)=>el.classList.toggle('on',idx===v));
+  updateFitScore();
+}
 function updateFitScore(){
   let total=0;
-  for(let i=0;i<FIT_Q.length;i++){
-    const el=document.getElementById('fa'+i);
-    let v=parseInt(el.value,10);
-    if(isNaN(v))v=0;
-    v=Math.max(0,Math.min(10,v));
-    el.value=v;
-    total+=v;
-  }
+  for(let i=0;i<FIT_Q.length;i++)total+=FIT_SCORES[i];
   const label=document.getElementById('fa-total-label');
   const msg=document.getElementById('fa-total-msg');
   const box=document.getElementById('fa-result');
