@@ -766,7 +766,7 @@ const PDS=[
 function rPD(){
   return`<div class="ey">02 — The pace dial</div>${dialSVG()}<h2 style="margin-top:4px;text-align:center">Pace flexes. Principles don't.</h2>
 <div class="pd-hint">Move the A -- or click a setting -- to highlight it</div>
-<p class="lead">CRANK runs at one of three settings. Full Crank is the default and the headline. Steady and Governed exist for teams that work through approval layers — they change how fast the flywheel turns, never what it is made of.</p>
+<p class="lead" style="margin-left:auto;margin-right:auto;text-align:center">CRANK runs at one of three settings. Full Crank is the default and the headline. Steady and Governed exist for teams that work through approval layers — they change how fast the flywheel turns, never what it is made of.</p>
 <div class="ib" style="margin-top:0">These settings are rough guidelines, not rigid tiers. The cycle lengths are starting points: a team can run a little faster or slower inside a setting, or borrow from a neighboring one, as the work requires. What matters is that pace is set on purpose and every change to it is visible.</div>
 <div class="pd-dial">${PDS.map(s=>`<div class="pd-set${s.def?' def':''}" data-pd="${s.n}" onclick="pdSelect('${s.n}')"><div class="pd-tag">${s.tag}</div><div class="pd-name">${s.n}</div><div class="pd-len">${s.len}</div><div class="pd-meter">${[1,2,3].map(v=>`<span class="${v<=s.lv?'on':''}"></span>`).join('')}</div><div class="pd-row"><b>Release</b>${s.rel}</div><div class="pd-row"><b>Review style</b>${s.rev}</div><div class="pd-row"><b>KICK cadence</b>${s.kick}</div><div class="pd-row"><b>Best for</b>${s.fit}</div></div>`).join('')}</div>
 <div class="sr"></div><div class="ml">Fixed at every setting — the core never flexes</div>
