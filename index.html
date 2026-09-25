@@ -209,7 +209,7 @@ td.hi{color:var(--tx)}
 
 
 /* PACE DIAL SELECTOR */
-.pdm{width:min(500px,100%);display:block;margin:6px 0 4px;touch-action:none;user-select:none;overflow:visible}
+.pdm{width:min(500px,100%);display:block;margin:6px auto 4px;touch-action:none;user-select:none;overflow:visible}
 .pdm .letters{font-family:var(--fd);font-weight:700;fill:var(--tx)}
 .pdm .track{fill:none;stroke:var(--s4);stroke-width:6;stroke-linecap:round}
 .pdm .tick{stroke:var(--t4);stroke-width:4;stroke-linecap:round;transition:stroke .3s}
@@ -223,7 +223,7 @@ td.hi{color:var(--tx)}
 .pdm .slot{stroke:var(--s4);stroke-width:3}
 .pdm:focus{outline:none}
 .pdm:focus-visible .track{stroke:var(--t3)}
-.pd-hint{font-family:var(--fm);font-size:11px;color:var(--t4);letter-spacing:.04em;margin-bottom:14px}
+.pd-hint{text-align:center;font-family:var(--fm);font-size:11px;color:var(--t4);letter-spacing:.04em;margin-bottom:14px}
 .pd-set{cursor:pointer;transition:opacity .35s,border-color .35s,background .35s,transform .35s}
 .pd-set.def:not(.sel){background:var(--s1);border-color:var(--s3)}
 .pd-set.dim{opacity:.45}
@@ -764,7 +764,7 @@ const PDS=[
   {n:'Governed',len:'~2 week cycles',lv:1,tag:'Regulated programs',rel:'Batched to approval windows',rev:'Formal review · compliance gate at Assess · sign-off at Stakeholder KICK',kick:'Both KICKs stay weekly — twice per cycle',fit:'Government and regulated programs'}
 ];
 function rPD(){
-  return`<div class="ey">02 — The pace dial</div>${dialSVG()}<h2 style="margin-top:4px">Pace flexes. Principles don't.</h2>
+  return`<div class="ey">02 — The pace dial</div>${dialSVG()}<h2 style="margin-top:4px;text-align:center">Pace flexes. Principles don't.</h2>
 <div class="pd-hint">Move the A -- or click a setting -- to highlight it</div>
 <p class="lead">CRANK runs at one of three settings. Full Crank is the default and the headline. Steady and Governed exist for teams that work through approval layers — they change how fast the flywheel turns, never what it is made of.</p>
 <div class="ib" style="margin-top:0">These settings are rough guidelines, not rigid tiers. The cycle lengths are starting points: a team can run a little faster or slower inside a setting, or borrow from a neighboring one, as the work requires. What matters is that pace is set on purpose and every change to it is visible.</div>
